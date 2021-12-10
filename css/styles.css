@@ -1,0 +1,16 @@
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+a,
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.basket,
+.basket:hover {
+  color: black;
+  margin-right: 20px;
+}
