@@ -14,19 +14,19 @@ $sql = "SELECT  f.id, f.name, m.price AS mała, s.price AS średnia, d.price AS 
         AND f.id = s.food_id
         AND f.id = d.food_id
         AND f.id = skl.x";
-
 try {
     if ($stmt = $pdo->prepare($sql)) {
-        if ($stmt->execute()) { ?>
+        if ($stmt->execute()) {
+?>
             <div class="row">
                 <?php while ($row = $stmt->fetch()) : ?>
                     <div class="col-sm-3" id=<?php echo $row["id"] ?>>
-                        <div class="card" style="width: 18rem;">
-                            <img src="/img/pizza.jpg" class="card-img-top" height="100px" width="100px" alt=<?php echo $row["name"] ?>>
+                        <div class="card">
+                            <img src="/img/<?php echo $row["name"] ?>.jpg" class="card-img-top" style="height: 125px; width: 200px" alt=<?php echo $row["name"] ?>>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row["name"] ?></h5>
                                 <p class="card-text"><?php echo $row["ingredients"] ?></p>
-                                <a href="add_to_basket.php?foodId=<?php echo $row["id"] ?>" class="btn btn-primary">Dodaj do koszyka</a>
+                                <a href="food.php?foodId=<?php echo $row["id"] ?>" class="btn btn-primary">Sprawdź</a>
                             </div>
                         </div>
                     </div>
@@ -40,3 +40,4 @@ try {
 } catch (PDOException $exp) {
     echo "Coś poszło nie tak ... Spróbuj ponownie później";
 }
+?>
