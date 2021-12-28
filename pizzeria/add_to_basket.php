@@ -4,14 +4,14 @@ require_once "config.php";
 
 session_start();
 
-if (!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     header("location: login.php");
 }
 
 try {
-    if (isset($_GET["foodId"]) && isset($_POST['quantity']) && isset($_POST['size'])) {
+    if (isset($_GET["foodId"]) && isset($_POST["quantity"]) && isset($_POST["size"])) {
         $quantity = $_POST["quantity"];
-        $size = $_POST['size'];
+        $size = $_POST["size"];
         $foodId = $_GET["foodId"];
         $clientId = $_SESSION["clientId"];
         $foodSizeId = "";

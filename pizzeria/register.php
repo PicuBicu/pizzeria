@@ -2,7 +2,7 @@
 
 require_once "config.php";
 
-define("ONLY_LETTERS", '/^[a-zA-Z]+$/');
+define("ONLY_LETTERS", "/^[a-zA-Z]+$/");
 
 function validateMail($email, &$errors)
 {
@@ -144,29 +144,29 @@ try {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="mb-3">
                 <label for="firstName">Imię:</label>
-                <input type="text" name="firstName" class="form-control <?php echo (!empty($errors["firstName"])) ? 'is-invalid' : ''; ?>" value="<?php echo $firstName; ?>">
+                <input type="text" name="firstName" class="form-control <?php echo (!empty($errors["firstName"])) ? "is-invalid" : ""; ?>" value="<?php echo $firstName; ?>">
                 <span class="invalid-feedback"><?php echo $errors["firstName"]; ?></span>
             </div>
 
             <div class="mb-3">
                 <label for="lastName">Nazwisko:</label>
-                <input type="text" name="lastName" class="form-control <?php echo (!empty($errors["lastName"])) ? 'is-invalid' : ''; ?>" value="<?php echo $lastName; ?>">
+                <input type="text" name="lastName" class="form-control <?php echo (!empty($errors["lastName"])) ? "is-invalid" : ""; ?>" value="<?php echo $lastName; ?>">
                 <span class="invalid-feedback"><?php echo $errors["lastName"]; ?></span>
             </div>
 
             <div class="mb-3">
                 <label for="email">Email:</label>
-                <input type="email" name="email" class="form-control <?php echo (!empty($errors["email"])) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+                <input type="email" name="email" class="form-control <?php echo (!empty($errors["email"])) ? "is-invalid" : ""; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $errors["email"]; ?></span>
             </div>
             <div class="mb-3">
                 <label for="password">Hasło:</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($errors["password"])) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <input type="password" name="password" class="form-control <?php echo (!empty($errors["password"])) ? "is-invalid" : ""; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $errors["password"]; ?></span>
             </div>
             <div class="mb-3">
                 <label for="confirmPassword">Potwierdź hasło:</label>
-                <input type="password" name="confirmPassword" class="form-control <?php echo (!empty($errors["confirmPassword"])) ? 'is-invalid' : ''; ?>" value="<?php echo $confirmPassword; ?>">
+                <input type="password" name="confirmPassword" class="form-control <?php echo (!empty($errors["confirmPassword"])) ? "is-invalid" : ""; ?>" value="<?php echo $confirmPassword; ?>">
                 <span class="invalid-feedback"><?php echo $errors["confirmPassword"]; ?></span>
             </div>
             <div class="mb-3">
