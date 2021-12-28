@@ -17,7 +17,7 @@ try {
             $stmt->bindParam(':clientId', $clientId, PDO::PARAM_INT);
             $stmt->bindParam(':foodId', $foodId, PDO::PARAM_INT);
             if ($stmt->execute()) {
-                header('location: components/orders.php');
+                header('location: orders.php');
             } else {
                 echo "Coś poszło nie tak ... Spróbuj ponownie później";
             }

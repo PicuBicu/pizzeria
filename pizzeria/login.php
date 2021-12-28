@@ -5,7 +5,7 @@ require_once "config.php";
 session_start();
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: components/home.php");
+    header("location: menu.php");
     exit;
 }
 
@@ -54,7 +54,7 @@ try {
                                 $_SESSION["firstName"] = $firstName;
                                 $_SESSION["lastName"] = $lastName;
                                 $_SESSION["email"] = trim($email);
-                                header("location: components/menu.php");
+                                header("location: menu.php");
                             } else {
                                 $errors["password"] = "Email or password is not valid";
                             }

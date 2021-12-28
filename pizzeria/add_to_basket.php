@@ -20,11 +20,11 @@ try {
             if ($stmt->execute()) {
                 if ($stmt->fetch()) {
                     if ($stmt->rowCount() > 0) {
-                        header("location: components/menu.php#$foodId");
+                        header("location: menu.php#$foodId");
                         exit();
                     }
                 } else {
-                    header("location: components/menu.php#$foodId");
+                    header("location: menu.php#$foodId");
                 }
             }
         }
@@ -34,7 +34,7 @@ try {
             $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
             $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
             if ($stmt->execute()) {
-                // header("location: components/menu.php#$foodId");
+                // header("location: menu.php#$foodId");
             } else {
                 echo "Coś poszło nie tak ... Spróbuj ponownie później";
             }
