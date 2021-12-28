@@ -1,5 +1,4 @@
 <?php
-
 require_once "config.php";
 
 $sql = "SELECT  f.id, f.name, m.price AS mała, s.price AS średnia, d.price AS duża, skl.ingredients
@@ -15,29 +14,25 @@ $sql = "SELECT  f.id, f.name, m.price AS mała, s.price AS średnia, d.price AS 
         AND f.id = s.food_id
         AND f.id = d.food_id
         AND f.id = skl.x";
+
 try {
     if ($stmt = $pdo->prepare($sql)) {
-        if ($stmt->execute()) {
-            echo "<div class='row'>";
-            while ($row = $stmt->fetch()) {
-                $id = $row['id'];
-                $name = $row['name'];
-                $small = $row['mała'];
-                $medium = $row['średnia'];
-                $large = $row['duża'];
-                $ingredients = $row["ingredients"];
-                echo "<div class='col-sm-3' id=$id>";
-                echo "<div class='card' style='width: 18rem;'>";
-                echo "<img src='/img/pizza.jpg' class='card-img-top' height='100px' width='100px' alt=" . $row['name'] . ">";
-                echo    "<div class='card-body'>";
-                echo    "<h5 class='card-title'>" . $name . "</h5>";
-                echo    "<p class='card-text'>" . $ingredients . "</p>";
-                echo    "<a href='../add_to_basket.php?foodId=$id' class='btn btn-primary'>Dodaj do koszyka</a>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
-            }
-            echo "</div>";
+        if ($stmt->execute()) { ?>
+            <div class="row">
+                <?php while ($row = $stmt->fetch()) : ?>
+                    <div class="col-sm-3" id=<?php echo $row["id"] ?>>
+                        <div class="card" style="width: 18rem;">
+                            <img src="/img/pizza.jpg" class="card-img-top" height="100px" width="100px" alt=<?php echo $row["name"] ?>>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $row["name"] ?></h5>
+                                <p class="card-text"><?php echo $row["ingredients"] ?></p>
+                                <a href="add_to_basket.php?foodId=<?php echo $row["id"] ?>" class="btn btn-primary">Dodaj do koszyka</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+<?php
         }
         unset($stmt);
     }
