@@ -7,22 +7,19 @@ if (!isset($_SESSION["loggedin"])) {
 }
 
 try {
-    $sql = "SELECT food_size.id, f.name, m.price AS mała, s.price AS średnia, d.price AS duża, skl.ingredients FROM basket, food_size, food AS f, 
-    (SELECT food_id, price FROM food_size WHERE name='mała') AS m, 
-    (SELECT food_id, price FROM food_size WHERE name='średnia') AS s, 
-    (SELECT food_id, price FROM food_size WHERE name='duża') AS d, 
-    (SELECT f.id AS x, f.name, GROUP_CONCAT(i.name SEPARATOR ', ') AS ingredients 
-    FROM food AS f, ingredients AS i, storage AS s 
+    $sql = "SELECT food_size.id, food_size.price, basket.quantity, f.name, skl.ingredients 
+    FROM basket, food_size, food AS f, 
+    ( SELECT f.id AS X, f.name, GROUP_CONCAT(i.name SEPARATOR ', ') 
+    AS ingredients 
+    FROM food AS f, ingredients AS i, STORAGE AS s 
     WHERE s.food_id = f.id 
     AND s.ingredient_id = i.id 
-    GROUP by f.id) AS skl 
-    WHERE f.id = m.food_id 
-    AND f.id = s.food_id 
-    AND f.id = d.food_id 
-    AND f.id = skl.x 
+    GROUP BY f.id ) AS skl 
+    WHERE f.id = skl.x 
     AND food_size.food_id = f.id 
     AND basket.client_id = :clientId 
-    AND basket.food_size_id = food_size.id";
+    AND basket.food_size_id = food_size.id;
+    ";
 ?>
     <?php if ($stmt = $pdo->prepare($sql)) {
         $clientId = $_SESSION["clientId"];
@@ -31,23 +28,59 @@ try {
     ?>
             <h3>Zamówienie</h3>
             <form action="order.php" method="post">
-                <ol class="list-group list-group-numbered">
-                    <?php if ($stmt->rowCount() > 0) : ?>
-                        <?php while ($row = $stmt->fetch()) : ?>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold"><?php echo $row["name"] ?></div>
-                                    <div><?php echo $row["ingredients"] ?></div>
-                                </div>
-                                <label class="form-label" for="quantity">Ilość: </label>
-                                <input class="form-control" style="width:min-content" type="number" id="quantity" name="quantity[]" min="1" max="5" value="1">
+                <?php if ($stmt->rowCount() > 0) : ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa</th>
+                                <th scope="col">Cena jedn. w zł</th>
+                                <th scope="col">Cena * ilość zł</th>
+                                <th scope="col">Ilość</th>
+                                <th scope="col">Przelicz</th>
+                                <th scope="col">Usuń</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $stmt->fetch()) : ?>
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold"><?php echo $row["name"] ?></div>
+                                        <div><?php echo $row["ingredients"] ?></div>
+                                    </td>
+                                    <td class="price">
+                                        <?php echo $row["price"] ?>
+                                    </td>
+                                    <td class="fullPrice">
+                                        <?php echo $row["price"] * $row["quantity"] ?>
+                                    </td>
+                                    <td>
+                                        <input class="form-control quantity" style="width:min-content" type="number" name="quantity[]" min="1" max="5" value="<?php echo $row["quantity"] ?>">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary calculateButton">Przelicz</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger"><a href="delete_from_basket.php?foodSizeId=<?php echo $row["id"] ?>">Usuń</a></button>
+                                    </td>
 
-                                <button type="button" class="btn btn-danger"><a href="delete_from_basket.php?foodSizeId=<?php echo $row["id"] ?>">Usuń</a></button>
-                            </li>
-                        <?php endwhile; ?>
-                    <?php endif; ?>
-                </ol>
-                <button type="submit">Złóż zamówienie</button>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                    <script>
+                        const buttons = [...document.querySelectorAll(".calculateButton")];
+                        const fullPrice = document.querySelectorAll(".fullPrice");
+                        const price = document.querySelectorAll(".price");
+                        const quantity = document.querySelectorAll(".quantity");
+                        buttons.forEach((button, index) => button.addEventListener("click", (e) => {
+                            fullPrice[index].textContent = (price[index].textContent * 1) * quantity[index].value;
+                            e.preventDefault();
+                        }));
+                    </script>
+                    <button type="submit">Złóż zamówienie</button>
+                <?php else : ?>
+                    <p class="text-secondary"> W koszyku nie ma jeszcze żadnych produktów</p>
+                <?php endif; ?>
             </form>
     <?php endif;
         unset($stmt);
