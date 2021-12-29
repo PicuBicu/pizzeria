@@ -28,7 +28,7 @@ try {
         if ($stmt->execute()) :
 ?>
             <h3>Zamówienie</h3>
-            <form action="order.php" method="post">
+            <form action="handle_basket.php" method="post">
                 <?php if ($stmt->rowCount() > 0) : ?>
                     <table class="table rounded">
                         <thead>
@@ -44,6 +44,7 @@ try {
                         <tbody>
                             <?php while ($row = $stmt->fetch()) : ?>
                                 <tr>
+                                    <input class="form-control" type="text" style="visibility: hidden; display: none" name="id[]" value="<?php echo $row["id"] ?>">
                                     <td>
                                         <div class="fw-bold"><?php echo $row["name"] ?></div>
                                         <div><?php echo $row["ingredients"] ?></div>
@@ -78,10 +79,13 @@ try {
                             e.preventDefault();
                         }));
                     </script>
-                    <button type="submit">Złóż zamówienie</button>
                 <?php else : ?>
                     <p>W koszyku nie ma jeszcze żadnych produktów</p>
                 <?php endif; ?>
+                <button type="submit" name="makeOrder" class="btn btn-primary">Złóż zamówienie</button>
+                <button type="submit" name="saveBusket" class="btn btn-primary">Zapisz koszyk</button>
+                <button type="submit" name="calcBasket" class="btn btn-primary">Przelicz zamówienie</button>
+
             </form>
 <?php endif;
         unset($stmt);

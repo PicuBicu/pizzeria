@@ -8,3 +8,5 @@ define("DATABASE_EXCEPTION", "Bład przetwarzania bazy danych, spróbuj ponownie
 define("CANNOT_PROCESS_USERS_BASKET", "Aktualnie nie możemy wyświetlić produktów w koszyku, przepraszamy");
 define("DELETE_FROM_BASKET_SUCCESS", "Pomyślnie usunięto produkt z koszyka");
 define("DELETE_FROM_BASKET_ERROR", "Wystąpił błąd podczas wstawiania elementu do koszyka");
+define("BASKET_SAVE_SUCCESS", "Pomyślnie zapisano koszyk");
+define("BASKET_SAVE_ERROR", "Wystąpił problem w trakcie zapisywania koszyka zamówienia");
