@@ -40,13 +40,14 @@ try {
                                     <div><?php echo $row["ingredients"] ?></div>
                                 </div>
                                 <label class="form-label" for="quantity">Ilość: </label>
-                                <input class="form-control" type="number" id="quantity" name="quantity[]" min="1" max="5" value="1">
+                                <input class="form-control" style="width:min-content" type="number" id="quantity" name="quantity[]" min="1" max="5" value="1">
 
                                 <button type="button" class="btn btn-danger"><a href="delete_from_basket.php?foodSizeId=<?php echo $row["id"] ?>">Usuń</a></button>
                             </li>
                         <?php endwhile; ?>
                     <?php endif; ?>
                 </ol>
+                <button type="submit">Złóż zamówienie</button>
             </form>
     <?php endif;
         unset($stmt);
@@ -54,7 +55,6 @@ try {
 <?php
     unset($pdo);
 } catch (PDOException $exp) {
-    echo $exp->getMessage();
     echo "Coś poszło nie tak ... Spróbuj ponownie później";
 }
 ?>

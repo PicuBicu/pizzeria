@@ -54,9 +54,9 @@ try {
                     <?php echo $row["ingredients"] ?>
                 </p>
                 <form action="add_to_basket.php?foodId=<?php echo $foodId ?>" method="post">
-                    <div class="options d-flex flex-fill">
+                    <div class="options flex-fill">
                         <label class="form-label" for="size">Rozmiar: </label>
-                        <select class="form-select form-select-sm ml-1" name="size">
+                        <select class="form-select form-select-sm ml-1" name="size" style="width:min-content">
                             <option value="mała">Mała <?php echo $row["mała"] ?> zł</option>
                             <option selected value="średnia">Średnia <?php echo $row["średnia"] ?> zł</option>
                             <option value="duża">Duża <?php echo $row["duża"] ?> zł</option>
@@ -65,7 +65,7 @@ try {
                     </div>
                     <div class="form-outline">
                         <label class="form-label" for="quantity">Ilość: </label>
-                        <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="5" value="1">
+                        <input type="number" id="quantity" name="quantity" class="form-control form-control-sm" style="width:min-content" min="1" max="5" value="1">
                     </div>
                     <div class="buy d-flex justify-content-between align-items-center">
                         <input type="submit" class="btn btn-primary" value="Dodaj do koszyka">

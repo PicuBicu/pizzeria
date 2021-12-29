@@ -20,7 +20,7 @@ try {
 ?>
             <div class="row">
                 <?php while ($row = $stmt->fetch()) : ?>
-                    <div class="col-sm-3" id=<?php echo $row["id"] ?>>
+                    <div class="col" id=<?php echo $row["id"] ?>>
                         <div class="card">
                             <img src="/img/<?php echo $row["name"] ?>.jpg" class="card-img-top" style="height: 125px; width: 200px" alt=<?php echo $row["name"] ?>>
                             <div class="card-body">
