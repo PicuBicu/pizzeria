@@ -140,7 +140,7 @@ try {
     </div>
     <div class="d-flex flex-row justify-content-center align-items-center">
 
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="mb-3">
                 <label for="firstName">Imię:</label>
                 <input type="text" name="firstName" class="form-control <?php echo (!empty($errors["firstName"])) ? "is-invalid" : ""; ?>" value="<?php echo $firstName; ?>">
