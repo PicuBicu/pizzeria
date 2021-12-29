@@ -1,7 +1,8 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
     <a href="menu.php" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-        <img width="40" height="32" role="img" aria-label="Bootstrap" src="/img/pizza.png" />
+        <img height="50px" width="50px" role="img" aria-label="Bootstrap" src="/img/pizza.png" />
+        <h1 class="display-6 display-primary my-2" style="color:#fff">Pizzeria</h1>
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">

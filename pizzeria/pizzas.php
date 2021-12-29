@@ -24,8 +24,8 @@ try {
                 <?php while ($row = $stmt->fetch()) : ?>
                     <div class="col" id=<?php echo $row["id"] ?>>
                         <a href="food.php?foodId=<?php echo $row["id"] ?>">
-                            <div class="card" style="min-height: 285px;">
-                                <img src="/img/<?php echo $row["name"] ?>.jpg" class="card-img-top" style="height: 125px; width: 200px" alt=<?php echo $row["name"] ?>>
+                            <div class="card text-center" style="min-height: 285px;">
+                                <img src="/img/<?php echo $row["name"] ?>.jpg" class="card-img-top mx-auto mt-4" style="height: 125px; width: 200px" alt=<?php echo $row["name"] ?>>
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row["name"] ?></h5>
                                     <p class="card-text"><?php echo $row["ingredients"] ?></p>

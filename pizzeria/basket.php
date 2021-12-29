@@ -30,7 +30,7 @@ try {
             <h3>Zamówienie</h3>
             <form action="order.php" method="post">
                 <?php if ($stmt->rowCount() > 0) : ?>
-                    <table class="table">
+                    <table class="table rounded">
                         <thead>
                             <tr>
                                 <th scope="col">Nazwa</th>
@@ -80,7 +80,7 @@ try {
                     </script>
                     <button type="submit">Złóż zamówienie</button>
                 <?php else : ?>
-                    <p class="text-secondary"> W koszyku nie ma jeszcze żadnych produktów</p>
+                    <p>W koszyku nie ma jeszcze żadnych produktów</p>
                 <?php endif; ?>
             </form>
 <?php endif;

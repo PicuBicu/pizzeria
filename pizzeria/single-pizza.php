@@ -46,32 +46,36 @@ try {
 <!-- Formularz wyboru ilość oraz rozmiaru danej pizzy przekierowuje nas do add_to_basket.php-->
 <div class="container">
     <div class="row">
-        <div class="card">
-            <img class="card-img" src="/img/<?php echo $row["name"] ?>.jpg" style="height:125px; width:200px;">
-            <div class="card-body">
-                <h4 class="card-title"><?php echo $row["name"] ?></h4>
-                <p class="card-text">
-                    <?php echo $row["ingredients"] ?>
-                </p>
-                <form action="add_to_basket.php?foodId=<?php echo $foodId ?>" method="post">
-                    <div class="options flex-fill">
-                        <label class="form-label" for="size">Rozmiar: </label>
-                        <select class="form-select form-select-sm ml-1" name="size" style="width:min-content">
-                            <option value="mała">Mała <?php echo $row["mała"] ?> zł</option>
-                            <option selected value="średnia">Średnia <?php echo $row["średnia"] ?> zł</option>
-                            <option value="duża">Duża <?php echo $row["duża"] ?> zł</option>
-                        </select>
-
+        <div class="my-5">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-xl-5 text-center">
+                        <img class="img-fluid" src="/img/<?php echo $row["name"] ?>.jpg" style="min-width:200px; min-height:200px" />
                     </div>
-                    <div class="form-outline">
-                        <label class="form-label" for="quantity">Ilość: </label>
-                        <input type="number" id="quantity" name="quantity" class="form-control form-control-sm" style="width:min-content" min="1" max="5" value="1">
+                    <div class="col-xl-7">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $row["name"] ?></h4>
+                            <p class="card-text"><?php echo $row["ingredients"] ?></p>
+                            <form action="add_to_basket.php?foodId=<?php echo $foodId ?>" method="post">
+                                <div class="hstack gap-2 mb-2">
+                                    <label class="form-label" for="size" style="width: 100px">Rozmiar: </label>
+                                    <select class="form-select form-select" name="size" style="width: 125px">
+                                        <option value="mała">Mała <?php echo $row["mała"] ?> zł</option>
+                                        <option selected value="średnia">Średnia <?php echo $row["średnia"] ?> zł</option>
+                                        <option value="duża">Duża <?php echo $row["duża"] ?> zł</option>
+                                    </select>
+                                </div>
+                                <div class="hstack gap-2 mb-2">
+                                    <label class="form-label" for="quantity" style="width: 100px">Ilość: </label>
+                                    <input type="number" id="quantity" name="quantity" class="form-control mb-2" style="width: 125px" min="1" max="5" value="1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="buy d-flex justify-content-between align-items-center">
-                        <input type="submit" class="btn btn-primary" value="Dodaj do koszyka">
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
