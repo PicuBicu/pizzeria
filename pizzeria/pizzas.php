@@ -1,5 +1,7 @@
 <?php
 require_once "config.php";
+require_once "helpers/messages.php";
+require_once "helpers/utils.php";
 
 $sql = "SELECT  f.id, f.name, m.price AS mała, s.price AS średnia, d.price AS duża, skl.ingredients
         FROM food AS f,
@@ -38,8 +40,8 @@ try {
         }
         unset($stmt);
     }
-    unset($pdo);
 } catch (PDOException $exp) {
-    echo "Coś poszło nie tak ... Spróbuj ponownie później";
+    // TODO: pizzas pdo error
+    echo "TODO pizzas";
 }
 ?>

@@ -4,9 +4,8 @@ require_once "config.php";
 
 session_start();
 
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: menu.php");
-    exit;
+if (redirectIfUserIsLoggedIn()) {
+    exit();
 }
 
 $email = "";
@@ -70,7 +69,9 @@ try {
         unset($pdo);
     }
 } catch (PDOException $exp) {
-    echo "Coś poszło nie tak ... Spróbuj ponownie później";
+    // TODO: fatal error page
+    echo "<div class='alert alert-danger'>Coś poszło nie tak ... Spróbuj ponownie później</div>";
+    exit();
 }
 ?>
 

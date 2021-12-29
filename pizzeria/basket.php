@@ -1,9 +1,11 @@
 <?php
 
 require_once "config.php";
+require_once "helpers/utils.php";
+require_once "helpers/messages.php";
 
-if (!isset($_SESSION["loggedin"])) {
-    header("location: login.php");
+if (redirectIfUserIsNotLoggedIn()) {
+    exit();
 }
 
 try {
@@ -20,12 +22,11 @@ try {
     AND basket.client_id = :clientId 
     AND basket.food_size_id = food_size.id;
     ";
-?>
-    <?php if ($stmt = $pdo->prepare($sql)) {
+    if ($stmt = $pdo->prepare($sql)) {
         $clientId = $_SESSION["clientId"];
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
         if ($stmt->execute()) :
-    ?>
+?>
             <h3>Zamówienie</h3>
             <form action="order.php" method="post">
                 <?php if ($stmt->rowCount() > 0) : ?>
@@ -82,10 +83,11 @@ try {
                     <p class="text-secondary"> W koszyku nie ma jeszcze żadnych produktów</p>
                 <?php endif; ?>
             </form>
-    <?php endif;
+<?php endif;
         unset($stmt);
-    } ?>
-<?php
+    } else {
+        setAlertInfo(CANNOT_PROCESS_USERS_BASKET, "warning");
+    }
     unset($pdo);
 } catch (PDOException $exp) {
     echo "Coś poszło nie tak ... Spróbuj ponownie później";

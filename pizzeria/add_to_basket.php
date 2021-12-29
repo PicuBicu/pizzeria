@@ -1,11 +1,13 @@
 <?php
 
 require_once "config.php";
+require_once "helpers/utils.php";
+require_once "helpers/messages.php";
 
 session_start();
 
-if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: login.php");
+if (redirectIfUserIsNotLoggedIn()) {
+    exit();
 }
 
 try {
@@ -30,15 +32,18 @@ try {
             if ($stmt->execute()) {
                 $row = $stmt->fetch();
                 if ($stmt->rowCount() > 0) {
+                    setAlertInfo(PRODUCT_ALREADY_IN_BASKET, "warning");
                     header("location: menu.php#foodId=$foodId");
                     exit();
                 }
             } else {
-                echo "Coś poszło nie tak ... Spróbuj ponownie później";
+                setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
+                header("location: menu.php#foodId=$foodId");
+                exit();
             }
         }
 
-        // Szukanie id z pizzy o danym rozmiarze
+        // Szukanie id pizzy o danym rozmiarze
         $sql = "SELECT id AS food_size_id 
             FROM food_size 
             WHERE name = :size 
@@ -50,11 +55,16 @@ try {
             if ($stmt->execute()) {
                 $row = $stmt->fetch();
                 if ($stmt->rowCount() < 0) {
+                    setAlertInfo(CANNOT_FIND_PRODUKT, "warning");
                     header("location: menu.php#foodId=$foodId");
                     exit();
                 } else {
                     $foodSizeId = $row["food_size_id"];
                 }
+            } else {
+                setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
+                header("location: menu.php#foodId=$foodId");
+                exit();
             }
         }
 
@@ -67,15 +77,19 @@ try {
             $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
             $stmt->bindParam(":quantity", $quantity, PDO::PARAM_INT);
             if ($stmt->execute()) {
+                setAlertInfo(ADD_TO_BASKET_SUCCESS, "success");
                 header("location: menu.php#foodId=$foodId");
                 exit();
-            } else {
-                echo "Coś poszło nie tak ... Spróbuj ponownie później";
             }
         }
         unset($stmt);
     }
+    setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
+    header("location: menu.php#foodId=$foodId");
     unset($pdo);
+    exit();
 } catch (PDOException $exp) {
-    echo "Coś poszło nie tak ... Spróbuj ponownie później";
+    setAlertInfo(DATABASE_EXCEPTION, "danger");
+    header("location: menu.php#foodId=$foodId");
+    exit();
 }

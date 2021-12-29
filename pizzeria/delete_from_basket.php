@@ -1,11 +1,12 @@
 <?php
 
 require_once "config.php";
+require_once "helpers/messages.php";
+require_once "helpers/utils.php";
 
 session_start();
-
-if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: login.php");
+if (redirectIfUserIsNotLoggedIn()) {
+    exit();
 }
 
 try {
@@ -18,18 +19,19 @@ try {
             $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
             $stmt->bindParam(":foodSizeId", $foodSizeId, PDO::PARAM_INT);
             if ($stmt->execute()) {
+                setAlertInfo(DELETE_FROM_BASKET_SUCCESS, "success");
                 header("location: orders.php");
-            } else {
-                echo "Coś poszło nie tak ... Spróbuj ponownie później";
+                exit();
             }
-        } else {
-            echo "Coś poszło nie tak ... Spróbuj ponownie później";
         }
         unset($stmt);
-    } else {
-        echo "Coś poszło nie tak ... Spróbuj ponownie później";
     }
+    setAlertInfo(DELETE_FROM_BASKET_ERROR, "danger");
+    header("location: orders.php");
     unset($pdo);
+    exit();
 } catch (PDOException $exp) {
-    echo "Coś poszło nie tak ... Spróbuj ponownie później";
+    setAlertInfo(DATABASE_EXCEPTION, "warning");
+    header("location: orders.php");
+    exit();
 }
