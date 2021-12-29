@@ -18,18 +18,20 @@ try {
     if ($stmt = $pdo->prepare($sql)) {
         if ($stmt->execute()) {
 ?>
-            <div class="row">
+            <div class="row g-4">
                 <?php while ($row = $stmt->fetch()) : ?>
                     <div class="col" id=<?php echo $row["id"] ?>>
-                        <div class="card">
-                            <img src="/img/<?php echo $row["name"] ?>.jpg" class="card-img-top" style="height: 125px; width: 200px" alt=<?php echo $row["name"] ?>>
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $row["name"] ?></h5>
-                                <p class="card-text"><?php echo $row["ingredients"] ?></p>
-                                <a href="food.php?foodId=<?php echo $row["id"] ?>" class="btn btn-primary">Sprawdź</a>
+                        <a href="food.php?foodId=<?php echo $row["id"] ?>">
+                            <div class="card" style="min-height: 285px;">
+                                <img src="/img/<?php echo $row["name"] ?>.jpg" class="card-img-top" style="height: 125px; width: 200px" alt=<?php echo $row["name"] ?>>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $row["name"] ?></h5>
+                                    <p class="card-text"><?php echo $row["ingredients"] ?></p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+
                 <?php endwhile; ?>
             </div>
 <?php
