@@ -20,7 +20,8 @@ try {
     WHERE f.id = skl.x 
     AND food_size.food_id = f.id 
     AND basket.client_id = :clientId 
-    AND basket.food_size_id = food_size.id;
+    AND basket.food_size_id = food_size.id
+    AND basket.order_id IS NULL
     ";
     if ($stmt = $pdo->prepare($sql)) {
         $clientId = $_SESSION["clientId"];
@@ -28,7 +29,7 @@ try {
         if ($stmt->execute()) :
 ?>
             <h3>Zamówienie</h3>
-            <form action="handle_basket.php" method="post">
+            <form action="save_basket.php" method="post">
                 <?php if ($stmt->rowCount() > 0) : ?>
                     <table class="table rounded">
                         <thead>
@@ -79,12 +80,12 @@ try {
                             e.preventDefault();
                         }));
                     </script>
+                    <button type="submit" name="saveBasket" class="btn btn-primary">Zapisz koszyk</button>
+                    <button type="submit" name="calcBasket" class="btn btn-primary">Przelicz zamówienie</button>
                 <?php else : ?>
                     <p>W koszyku nie ma jeszcze żadnych produktów</p>
                 <?php endif; ?>
-                <button type="submit" name="makeOrder" class="btn btn-primary">Złóż zamówienie</button>
-                <button type="submit" name="saveBusket" class="btn btn-primary">Zapisz koszyk</button>
-                <button type="submit" name="calcBasket" class="btn btn-primary">Przelicz zamówienie</button>
+
 
             </form>
 <?php endif;
@@ -92,7 +93,7 @@ try {
     } else {
         setAlertInfo(CANNOT_PROCESS_USERS_BASKET, "warning");
     }
-    unset($pdo);
+    // unset($pdo);
 } catch (PDOException $exp) {
     echo "Coś poszło nie tak ... Spróbuj ponownie później";
 }

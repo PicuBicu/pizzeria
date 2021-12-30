@@ -23,7 +23,8 @@ try {
             WHERE client_id = :clientId 
             AND food_size.id = basket.food_size_id
             AND food_size.food_id = :foodId
-            AND food_size.name = :size";
+            AND food_size.name = :size
+            AND basket.order_id = NULL";
 
         if ($stmt = $pdo->prepare($sql)) {
             $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);

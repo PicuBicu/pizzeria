@@ -10,3 +10,7 @@ define("DELETE_FROM_BASKET_SUCCESS", "Pomyślnie usunięto produkt z koszyka");
 define("DELETE_FROM_BASKET_ERROR", "Wystąpił błąd podczas wstawiania elementu do koszyka");
 define("BASKET_SAVE_SUCCESS", "Pomyślnie zapisano koszyk");
 define("BASKET_SAVE_ERROR", "Wystąpił problem w trakcie zapisywania koszyka zamówienia");
+define("ADDRESS_SAVE_SUCCESS", "Pomyślnie dodany nowy adres dostawy");
+define("ADDRESS_SAVE_ERROR", "Wystąpił problem w trakcie zapisywania adresu dostawy");
+define("ORDER_SAVE_ERROR", "Wystąpił problem w trakcie przetwarzania twojego zamówienia");
+define("ORDER_SAVE_SUCCESS", "Twoje zamówienie jest w trakcie realizacji");
