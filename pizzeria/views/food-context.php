@@ -1,8 +1,8 @@
 <div class="container">
-    <div class="foodDetails">
+    <div class="row">
         <div class="my-5">
             <div class="card mb-3">
-                <div class="foodDetails g-0">
+                <div class="row g-0">
                     <div class="col-xl-5 text-center">
                         <img class="img-fluid" src="/img/<?= $foodDetails["name"] ?>.jpg" style="min-width:200px; min-height:200px" />
                     </div>
@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <h4 class="card-title"><?= $foodDetails["name"] ?></h4>
                             <p class="card-text"><?= $foodDetails["ingredients"] ?></p>
-                            <form action="add_to_basket.php?foodId=<?= $foodId ?>" method="post">
+                            <form action="add_to_basket.php?foodId=<?php echo $foodId ?>" method="post">
                                 <div class="hstack gap-2 mb-2">
                                     <label class="form-label" for="size" style="width: 100px">Rozmiar: </label>
                                     <select class="form-select form-select" name="size" style="width: 125px">
@@ -31,5 +31,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>
