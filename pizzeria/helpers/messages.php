@@ -1,5 +1,4 @@
 <?php
-
 define("ADD_TO_BASKET_ERROR", "Wystąpił błąd podczas wstawiania elementu do koszyka");
 define("ADD_TO_BASKET_SUCCESS", "Pomyślnie dodano produkt do koszyka");
 define("PRODUCT_ALREADY_IN_BASKET", "Podany produkt znajduje się już w koszyku");
@@ -14,3 +13,4 @@ define("ADDRESS_SAVE_SUCCESS", "Pomyślnie dodany nowy adres dostawy");
 define("ADDRESS_SAVE_ERROR", "Wystąpił problem w trakcie zapisywania adresu dostawy");
 define("ORDER_SAVE_ERROR", "Wystąpił problem w trakcie przetwarzania twojego zamówienia");
 define("ORDER_SAVE_SUCCESS", "Twoje zamówienie jest w trakcie realizacji");
+define("PRODUCT_FETCH_ERROR", "Wystąpił bład w trakcie wyświetlania produktów");
