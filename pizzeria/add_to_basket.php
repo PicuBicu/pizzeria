@@ -56,7 +56,7 @@ try {
             if ($stmt->execute()) {
                 $row = $stmt->fetch();
                 if ($stmt->rowCount() < 0) {
-                    setAlertInfo(CANNOT_FIND_PRODUKT, "warning");
+                    setAlertInfo(CANNOT_FIND_PRODUCT, "warning");
                     header("location: menu.php#foodId=$foodId");
                     exit();
                 } else {
