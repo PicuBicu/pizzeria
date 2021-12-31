@@ -12,6 +12,7 @@ if (redirectIfUserIsNotLoggedIn()) {
 
 // Header with meta section
 require_once "header.php";
+require_once "helpers/alert.php";
 
 // Display alert message when it's set in session
 try {

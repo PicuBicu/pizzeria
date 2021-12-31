@@ -3,6 +3,9 @@
 require_once "config.php";
 require_once "helpers/utils.php";
 require_once "helpers/messages.php";
+require_once "helpers/alert-types.php";
+require_once "models/BasketModel.php";
+require_once "models/FoodModel.php";
 
 session_start();
 
@@ -10,87 +13,47 @@ if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
 
-try {
-    if (isset($_GET["foodId"]) && isset($_POST["quantity"]) && isset($_POST["size"])) {
-        $quantity = $_POST["quantity"];
-        $size = $_POST["size"];
-        $foodId = $_GET["foodId"];
-        $clientId = $_SESSION["clientId"];
-        $foodSizeId = "";
+if (
+    isset($_GET["foodId"]) &&
+    isset($_POST["quantity"]) &&
+    isset($_POST["size"])
+) {
 
-        // Jeżeli podany produkt już jest w koszyku to użytkownik powróci do menu
-        $sql = "SELECT basket.food_size_id AS id FROM basket, food_size 
-            WHERE client_id = :clientId 
-            AND food_size.id = basket.food_size_id
-            AND food_size.food_id = :foodId
-            AND food_size.name = :size
-            AND basket.order_id IS NULL";
+    $quantity = filter_input(INPUT_POST, "quantity", FILTER_SANITIZE_NUMBER_INT);
 
-        if ($stmt = $pdo->prepare($sql)) {
-            $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
-            $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
-            $stmt->bindParam(":size", $size, PDO::PARAM_STR);
-            if ($stmt->execute()) {
-                $row = $stmt->fetch();
-                if ($stmt->rowCount() > 0) {
-                    setAlertInfo(PRODUCT_ALREADY_IN_BASKET, "warning");
-                    header("location: menu.php#foodId=$foodId");
-                    exit();
-                }
-            } else {
-                setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
-                header("location: menu.php#foodId=$foodId");
-                exit();
-            }
-        }
-
-        // Szukanie id pizzy o danym rozmiarze
-        $sql = "SELECT id AS food_size_id 
-            FROM food_size 
-            WHERE name = :size 
-            AND food_id = :foodId";
-
-        if ($stmt = $pdo->prepare($sql)) {
-            $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
-            $stmt->bindParam(":size", $size, PDO::PARAM_STR);
-            if ($stmt->execute()) {
-                $row = $stmt->fetch();
-                if ($stmt->rowCount() < 0) {
-                    setAlertInfo(CANNOT_FIND_PRODUCT, "warning");
-                    header("location: menu.php#foodId=$foodId");
-                    exit();
-                } else {
-                    $foodSizeId = $row["food_size_id"];
-                }
-            } else {
-                setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
-                header("location: menu.php#foodId=$foodId");
-                exit();
-            }
-        }
-
-        // Wstawianie pizzy do koszyka
-        $sql = "INSERT INTO basket (client_id, food_size_id, quantity) 
-            VALUES(:clientId, :foodSizeId, :quantity)";
-
-        if ($stmt = $pdo->prepare($sql)) {
-            $stmt->bindParam(":foodSizeId", $foodSizeId, PDO::PARAM_INT);
-            $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
-            $stmt->bindParam(":quantity", $quantity, PDO::PARAM_INT);
-            if ($stmt->execute()) {
-                setAlertInfo(ADD_TO_BASKET_SUCCESS, "success");
-                header("location: menu.php#foodId=$foodId");
-                exit();
-            }
-        }
-        unset($stmt);
+    if ($quantity > 5 || $quantity < 1) {
+        setAlertInfo(QUANTITY_OUT_OF_RANGE, WARNING);
+        header("location: food-details.php?foodId=$foodId");
+        exit();
     }
-    setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
-    header("location: menu.php#foodId=$foodId");
-    unset($pdo);
-    exit();
-} catch (PDOException $exp) {
-    setAlertInfo(DATABASE_EXCEPTION, "danger");
-    header("location: menu.php#foodId=$foodId");
-    exit();
+
+    $size = filter_input(INPUT_POST, "size", FILTER_SANITIZE_STRING);
+    $foodId = filter_input(INPUT_GET, "foodId", FILTER_SANITIZE_NUMBER_INT);
+    $clientId = $_SESSION["clientId"];
+
+    $basketModel = new BasketModel($pdo);
+
+    if ($basketModel->checkIfProductIsInBasket($clientId, $foodId, $size)) {
+        setAlertInfo(PRODUCT_ALREADY_IN_BASKET, WARNING);
+        header("location: food-details.php?foodId=$foodId");
+        exit();
+    }
+
+    $foodModel = new FoodModel($pdo);
+    $foodSizeId = $foodModel->getFoodSizeIdByFoodId($foodId, $size);
+    if (!$foodSizeId) {
+        setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
+        header("location: menu.php#foodId=$foodId");
+        exit();
+    }
+
+    if ($basketModel->addNewProductToBasket($foodSizeId, $clientId, $quantity)) {
+        setAlertInfo(ADD_TO_BASKET_SUCCESS, SUCCESS);
+        header("location: menu.php#foodId=$foodId");
+        exit();
+    }
 }
+
+setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
+header("location: menu.php#foodId=$foodId");
+exit();

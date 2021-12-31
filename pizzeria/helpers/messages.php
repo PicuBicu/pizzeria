@@ -14,3 +14,4 @@ define("ADDRESS_SAVE_ERROR", "Wystąpił problem w trakcie zapisywania adresu do
 define("ORDER_SAVE_ERROR", "Wystąpił problem w trakcie przetwarzania twojego zamówienia");
 define("ORDER_SAVE_SUCCESS", "Twoje zamówienie jest w trakcie realizacji");
 define("PRODUCT_FETCH_ERROR", "Wystąpił bład w trakcie wyświetlania produktów");
+define("QUANTITY_OUT_OF_RANGE", "Nie jesteśmy w stanie przetworzyć podanej ilości produktów w zamówieniu");

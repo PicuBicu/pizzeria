@@ -51,4 +51,21 @@ class FoodModel
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    public function getFoodSizeIdByFoodId(int $foodId, string $size)
+    {
+        $sql = "SELECT id AS food_size_id 
+            FROM food_size 
+            WHERE name = :size 
+            AND food_id = :foodId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
+        $stmt->bindParam(":size", $size, PDO::PARAM_STR);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if ($stmt->rowCount() > 0) {
+            return $row["food_size_id"];
+        }
+        return false;
+    }
 }
