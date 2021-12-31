@@ -1,5 +1,8 @@
 <h3>Koszyk</h3>
-<form action="save_basket.php" method="post">
+<?php if (!$blocked) : ?>
+    <form action="save_basket.php" method="post">
+    <?php endif; ?>
+
     <table class="table rounded">
         <thead>
             <tr>
@@ -8,8 +11,10 @@
                 <th scope="col">Cena jedn. w zł</th>
                 <th scope="col">Cena * ilość zł</th>
                 <th scope="col">Ilość</th>
-                <th scope="col">Przelicz</th>
-                <th scope="col">Usuń</th>
+                <?php if (!$blocked) : ?>
+                    <th scope="col">Przelicz</th>
+                    <th scope="col">Usuń</th>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -29,27 +34,22 @@
                     <td class="fullPrice">
                         <?= $row["price"] * $row["quantity"] ?>
                     </td>
-                    <td>
-                        <?php if (!$blocked) : ?>
+                    <?php if (!$blocked) : ?>
+                        <td>
                             <input class="form-control quantity" style="width:min-content" type="number" name="quantity[]" min="1" max="5" value="<?= $row["quantity"] ?>">
-                        <?php else : ?>
-                            <?= $row["quantity"] ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if (!$blocked) : ?>
+                        </td>
+                        <td>
                             <button type="button" class="btn btn-primary calculateButton">Przelicz</button>
-                        <?php else : ?>
-                            <?= "" ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if (!$blocked) : ?>
+                        </td>
+                        <td>
                             <button type="button" class="btn btn-danger"><a href="delete_from_basket.php?foodSizeId=<?= $row["id"] ?>">Usuń</a></button>
-                        <?php else : ?>
-                            <?= "" ?>
-                        <?php endif; ?>
-                    </td>
+                        </td>
+                    <?php else : ?>
+                        <td>
+                            <?= $row["quantity"] ?>
+                        </td>
+                    <?php endif; ?>
+
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -64,5 +64,7 @@
             e.preventDefault();
         }));
     </script>
-    <button type="submit" name="saveBasket" class="btn btn-primary mb-2">Zapisz koszyk</button>
-</form>
+    <?php if (!$blocked) : ?>
+        <button type="submit" name="saveBasket" class="btn btn-primary mb-2">Zapisz koszyk</button>
+    </form>
+<?php endif; ?>
