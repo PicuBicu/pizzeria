@@ -23,16 +23,19 @@ try {
         if (!$foodDetails) {
             setAlertInfo(CANNOT_FIND_PRODUCT, WARNING);
             header("location: menu.php#foodId=$foodId");
+            exit();
         } else {
             require_once "views/food-context.php";
         }
     } else {
         setAlertInfo(CANNOT_FIND_PRODUCT, WARNING);
         header("location: menu.php");
+        exit();
     }
 } catch (PDOException $exp) {
     setAlertInfo(DATABASE_EXCEPTION, DANGER);
     header("location: menu.php");
+    exit();
 }
 
 require_once "footer.php";
