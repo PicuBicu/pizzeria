@@ -3,52 +3,46 @@
 require_once "config.php";
 require_once "helpers/utils.php";
 require_once "helpers/messages.php";
+require_once "helpers/alert-types.php";
+require_once "models/OrderModel.php";
+require_once "models/BasketModel.php";
 
 session_start();
 
 if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
-try {
-    if (isset($_GET["addressId"]) && isset($_GET["informationForCourier"])) {
-        $sql = "INSERT INTO `order` (client_id, address_id, information_for_courier, order_status_id) 
-        VALUES(:clientId, :addressId, :informationForCourier, 1)";
 
+if (isset($_POST["addressId"]) && isset($_POST["makeOrder"])) {
 
-        // Tworzenie instacji zamowienia
-        // TODO trim oraz filter_input
-        $clientId = $_SESSION["clientId"];
-        $addressId = $_GET["addressId"];
-        $informationForCourier = $_GET["informationForCourier"];
+    $addressId = filter_input(INPUT_POST, "addressId", FILTER_SANITIZE_STRING);
+    $informationForCourier = filter_input(INPUT_POST, "informationForCourier", FILTER_SANITIZE_STRING);
+    $clientId = $_SESSION["clientId"];
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
-        $stmt->bindParam(":addressId", $addressId, PDO::PARAM_INT);
-        $stmt->bindParam(":informationForCourier", $informationForCourier, PDO::PARAM_STR);
-        if (!$stmt->execute()) {
-            setAlertInfo(ORDER_SAVE_ERROR, "danger");
-            header("location: orders.php");
-            exit();
-        }
-
-        // Dodawanie itemkom z koszyka id zamówienia
-        $orderId = $pdo->lastInsertId();
-        echo $orderId;
-        $sql = "UPDATE basket SET is_realised = true, order_id = :orderId 
-                WHERE client_id = :clientId 
-                AND is_realised = false";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
-        $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
-        if (!$stmt->execute()) {
-            setAlertInfo(ORDER_SAVE_ERROR, "danger");
-            header("location: orders.php");
-            exit();
-        }
+    $orderModel = new OrderModel($pdo);
+    if (!$orderModel->addNewOrder($clientId, $addressId, $informationForCourier)) {
+        setAlertInfo(ORDER_SAVE_ERROR, DANGER);
+        header("location: orders.php");
+        exit();
     }
-    setAlertInfo(ORDER_SAVE_SUCCESS, "success");
+
+    $orderId = $pdo->lastInsertId();
+    $basketModel = new BasketModel($pdo);
+    if (!$basketModel->setOrderIdInBasket($clientId, $orderId)) {
+        $orderModel->deleteOrderById($clientId, $orderId);
+        setAlertInfo(ORDER_SAVE_ERROR, DANGER);
+        header("location: orders.php");
+        exit();
+    }
+
+    setAlertInfo(ORDER_SAVE_SUCCESS, SUCCESS);
     header("location: orders.php");
     exit();
-} catch (PDOException $exp) {
-    echo $exp->getMessage();
+} else if (isset($_POST["cancelOrder"])) {
+    setAlertInfo(ORDER_HAS_BEEN_CANCELLED, SUCCESS);
+    header("location: orders.php");
+    exit();
 }
+setAlertInfo(ORDER_SAVE_ERROR, DANGER);
+header("location: orders.php");
+exit();

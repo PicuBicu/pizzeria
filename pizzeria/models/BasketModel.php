@@ -71,4 +71,15 @@ class BasketModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function setOrderIdInBasket(int $clientId, int $orderId): bool
+    {
+        $sql = "UPDATE basket SET is_realised = true, order_id = :orderId 
+            WHERE client_id = :clientId 
+            AND is_realised = false";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
+        $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
