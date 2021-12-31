@@ -21,8 +21,7 @@ try {
     AND food_size.food_id = f.id 
     AND basket.client_id = :clientId 
     AND basket.food_size_id = food_size.id
-    AND basket.order_id IS NULL
-    ";
+    AND basket.order_id IS NULL";
     if ($stmt = $pdo->prepare($sql)) {
         $clientId = $_SESSION["clientId"];
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
@@ -60,7 +59,9 @@ try {
                                         <input class="form-control quantity" style="width:min-content" type="number" name="quantity[]" min="1" max="5" value="<?php echo $row["quantity"] ?>">
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary calculateButton">Przelicz</button>
+                                        <?php if (!$blocked) : ?>
+                                            <button type="button" class="btn btn-primary calculateButton">Przelicz</button>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger"><a href="delete_from_basket.php?foodSizeId=<?php echo $row["id"] ?>">Usuń</a></button>

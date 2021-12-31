@@ -27,6 +27,7 @@ try {
         <label for="city">Miejscowość:</label>
         <input type="text" name="city" class="form-control" />
         <button type="submit">Zapisz adres</button>
-    </form><?php else : ?>
+    </form>
+<?php else : ?>
     <button type="submit" class="btn btn-primary"><a href="order-next-step.php">Złóż zamówienie</a></button>
 <?php endif; ?>
