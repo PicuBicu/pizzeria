@@ -26,7 +26,7 @@ try {
         require_once "views/basket.php";
         $addressModel = new AddressModel($pdo);
         $clientAddressesNum = $addressModel->getClientAddressesNumber($clientId);
-        if ($clientAddressesNum > 0) {
+        if ($clientAddressesNum <= 0) {
             require_once "views/new-address-form.php";
         } else {
             require_once "views/proccess-order.php";
