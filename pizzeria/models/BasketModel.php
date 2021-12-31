@@ -37,4 +37,17 @@ class BasketModel
         $stmt->bindParam(":quantity", $quantity, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function deleteFromBasket(int $clientId, int $foodSizeId): bool
+    {
+        $sql = "DELETE FROM basket 
+            WHERE client_id = :clientId 
+            AND food_size_id = :foodSizeId
+            AND order_id IS NULL
+            AND is_realised = 0";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
+        $stmt->bindParam(":foodSizeId", $foodSizeId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
