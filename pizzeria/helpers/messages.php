@@ -15,3 +15,4 @@ define("ORDER_SAVE_ERROR", "Wystąpił problem w trakcie przetwarzania twojego z
 define("ORDER_SAVE_SUCCESS", "Twoje zamówienie jest w trakcie realizacji");
 define("PRODUCT_FETCH_ERROR", "Wystąpił bład w trakcie wyświetlania produktów");
 define("QUANTITY_OUT_OF_RANGE", "Nie jesteśmy w stanie przetworzyć podanej ilości produktów w zamówieniu");
+define("EMPTY_BASKET", "Koszyk jest pusty");
