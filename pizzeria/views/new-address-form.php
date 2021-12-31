@@ -6,5 +6,5 @@
     <input type="text" name="houseNumber" class="form-control" />
     <label for="city">Miejscowość:</label>
     <input type="text" name="city" class="form-control" />
-    <button type="submit">Zapisz adres</button>
+    <button type="submit" class="btn btn-primary mt-2">Zapisz adres</button>
 </form>

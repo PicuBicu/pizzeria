@@ -1,10 +1,17 @@
 <?php
 
 require_once "config.php";
+require_once "helpers/alert-types.php";
+require_once "helpers/messages.php";
+require_once "helpers/utils.php";
+require_once "models/AddressModel.php";
 
-echo print_r($_POST);
+session_start();
+if (redirectIfUserIsNotLoggedIn()) {
+    exit();
+}
 
-function validateField($field)
+function validateAddressField($field)
 {
     if (isset($field) && strlen(trim($field)) < 255) {
         return true;
@@ -13,28 +20,22 @@ function validateField($field)
 }
 
 if (
-    validateField($_POST["street"]) &&
-    validateField($_POST["houseNumber"]) &&
-    validateField($_POST["city"])
+    validateAddressField($_POST["street"]) &&
+    validateAddressField($_POST["houseNumber"]) &&
+    validateAddressField($_POST["city"])
 ) {
-    $street = trim($_POST["street"]);
-    $houseNumber = trim($_POST["houseNumber"]);
-    $city = trim($_POST["city"]);
+    $street = filter_input(INPUT_POST, "street", FILTER_SANITIZE_STRING);
+    $houseNumber = filter_input(INPUT_POST, "houseNumber", FILTER_SANITIZE_STRING);
+    $city = filter_input(INPUT_POST, "city", FILTER_SANITIZE_STRING);
+    $clientId = $_SESSION["clientId"];
 
-    $sql = "INSERT INTO client_address (client_id, street, house_number, city) VALUES (:clientId, :street, :houseNumber, :city)";
-
-    if ($stmt = $pdo->prepare($sql)) {
-        $stmt->bindParam(":street", $street, PDO::PARAM_STR);
-        $stmt->bindParam(":houseNumber", $houseNumber, PDO::PARAM_STR);
-        $stmt->bindParam(":city", $city, PDO::PARAM_STR);
-        $stmt->bindParam(":clientId", $_SESSION["clientId"], PDO::PARAM_INT);
-        if ($stmt->execute()) {
-            setAlertInfo(ADDRESS_SAVE_SUCCESS, "success");
-        }
+    $addressModel = new AddressModel($pdo);
+    if ($addressModel->addNewAddress($clientId, $street, $houseNumber, $city)) {
+        setAlertInfo(ADDRESS_SAVE_SUCCESS, SUCCESS);
+        header("location: orders.php");
+        exit();
     }
 }
-if (isset($_SESSION["alertMessage"])) {
-    setAlertInfo(ADDRESS_SAVE_ERROR, "danger");
-}
+setAlertInfo(ADDRESS_SAVE_ERROR, DANGER);
 header("location: orders.php");
 exit();
