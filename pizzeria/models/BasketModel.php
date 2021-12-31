@@ -82,4 +82,23 @@ class BasketModel
         $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function updateBasket(int $clientId, array $quantities, array $ids)
+    {
+        $len = count($quantities);
+        for ($i = 0; $i < $len; $i++) {
+            $sql = "UPDATE basket 
+                    SET quantity = :quantity 
+                    WHERE food_size_id = :foodSizeId 
+                    AND client_id = :clientId";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":quantity", $quantities[$i], PDO::PARAM_INT);
+            $stmt->bindParam(":foodSizeId", $ids[$i], PDO::PARAM_INT);
+            $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
+            if (!$stmt->execute()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
