@@ -58,7 +58,7 @@ if (strlen($errors) == 0) {
         $_SESSION["firstName"] = $clientData["first_name"];
         $_SESSION["lastName"] = $clientData["last_name"];
         $_SESSION["email"] = $clientData["email"];
-        setAlertInfo(LOGGED_SUCCESSFULLY, DANGER);
+        setAlertInfo(LOGGED_SUCCESSFULLY, SUCCESS);
         header("location: menu.php");
         exit();
     }
