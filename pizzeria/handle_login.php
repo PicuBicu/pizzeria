@@ -5,13 +5,12 @@ require_once "helpers/alert-types.php";
 require_once "helpers/messages.php";
 require_once "helpers/utils.php";
 require_once "models/ClientModel.php";
-
+require_once "models/BasketModel.php";
 session_start();
 
 if (redirectIfUserIsLoggedIn()) {
     exit();
 }
-
 $errors = "";
 
 if (!isset($_POST["email"]) || strlen(trim($_POST["email"])) == 0) {
@@ -52,12 +51,14 @@ if (strlen($errors) == 0) {
         exit();
     }
     if (password_verify($password, $clientData["password"])) {
-        session_start();
         $_SESSION["loggedin"] = true;
         $_SESSION["clientId"] = $clientData["id"];
         $_SESSION["firstName"] = $clientData["first_name"];
         $_SESSION["lastName"] = $clientData["last_name"];
         $_SESSION["email"] = $clientData["email"];
+
+        $basketModel = new BasketModel($pdo);
+        $_SESSION["basketCount"] = $basketModel->countItemsUserBasket($clientData["id"]);
         setAlertInfo(LOGGED_SUCCESSFULLY, SUCCESS);
         header("location: menu.php");
         exit();

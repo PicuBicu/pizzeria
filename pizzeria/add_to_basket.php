@@ -48,6 +48,7 @@ if (
     }
 
     if ($basketModel->addNewProductToBasket($foodSizeId, $clientId, $quantity)) {
+        $_SESSION["basketCount"] += 1;
         setAlertInfo(ADD_TO_BASKET_SUCCESS, SUCCESS);
         header("location: menu.php#foodId=$foodId");
         exit();
