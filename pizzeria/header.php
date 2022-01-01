@@ -36,11 +36,13 @@
                     </svg>
                 </a>
 
-                <?php if ($_SESSION["loggedin"]) : ?>
-                    <button type="button" class="btn btn-primary"><a href="logout.php">Wyloguj się</a></button>
-                <?php else : ?>
-                    <button type="button" class="btn btn-outline-primary me-2"><a href="login.php">Zaloguj się</a></button>
-                    <button type="button" class="btn btn-primary"><a href="register.php">Zarejestruj się</a></button>
+                <?php if (isset($_SESSION)) : ?>
+                    <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) : ?>
+                        <button type="button" class="btn btn-primary"><a href="logout.php">Wyloguj się</a></button>
+                    <?php else : ?>
+                        <button type="button" class="btn btn-outline-primary me-2"><a href="login.php">Zaloguj się</a></button>
+                        <button type="button" class="btn btn-primary"><a href="register.php">Zarejestruj się</a></button>
+                    <?php endif; ?>
                 <?php endif; ?>
 
             </div>
