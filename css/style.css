@@ -6,15 +6,25 @@ body {
   color: #fff;
 }
 .card,
-.table {
+.table,
+header,
+footer {
   background-color: rgba(77, 1, 1, 0.5);
   color: #fff;
+  padding: 20px;
 }
 a:hover {
   cursor: pointer;
+  color: rgb(0, 238, 255) !important;
 }
 a:link,
 a:visited {
   color: #fff;
   text-decoration: none;
+}
+button a:hover {
+  cursor: pointer;
+  color: white !important;
+}
+footer {
 }
