@@ -31,4 +31,16 @@ class OrderModel
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function getAllClientOrders(int $client)
+    {
+        $sql = "DELETE FROM `order` 
+        WHERE id= :orderId 
+        AND client_id= :clientId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
+        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
