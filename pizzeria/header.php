@@ -29,7 +29,9 @@
 
             <div class="col-md-3 text-end">
 
-                <a class="basket btn" href="orders.php">
+
+
+                <a class="btn" href="orders.php">
                     <?php if (isset($_SESSION) && isset($_SESSION["basketCount"]) && $_SESSION["basketCount"] > 0) : ?>
                         <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             <?= $_SESSION["basketCount"] ?>
@@ -42,6 +44,14 @@
                     </svg>
                 </a>
 
+                <a href="account.php" class="btn btn-primary">
+                    <span>Konto</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                    </svg>
+                </a>
+
                 <?php if (isset($_SESSION)) : ?>
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) : ?>
                         <button type="button" class="btn btn-primary"><a href="logout.php">Wyloguj się</a></button>
@@ -49,6 +59,7 @@
                         <button type="button" class="btn btn-outline-primary me-2"><a href="login.php">Zaloguj się</a></button>
                         <button type="button" class="btn btn-primary"><a href="register.php">Zarejestruj się</a></button>
                     <?php endif; ?>
+
                 <?php endif; ?>
 
             </div>
