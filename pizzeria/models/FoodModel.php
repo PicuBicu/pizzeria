@@ -68,4 +68,12 @@ class FoodModel
         }
         return false;
     }
+
+    public function deleteProductById(int $foodId)
+    {
+        $sql = "DELETE FROM food WHERE id = :foodId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

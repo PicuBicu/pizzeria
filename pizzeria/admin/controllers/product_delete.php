@@ -1,0 +1,28 @@
+<?php
+
+require_once "../../config.php";
+require_once "../../helpers/messages.php";
+require_once "../../helpers/alert-types.php";
+require_once "../../helpers/utils.php";
+require_once "../../models/FoodModel.php";
+
+session_start();
+if (redirectIfUserIsNotLoggedIn()) {
+    exit();
+}
+
+if (isset($_GET["foodId"])) {
+
+    $foodSizeId = filter_input(INPUT_GET, "foodId", FILTER_SANITIZE_NUMBER_INT);
+    $clientId = $_SESSION["clientId"];
+    $foodModel = new FoodModel($pdo);
+    if ($foodModel->deleteProductById($foodSizeId)) {
+        setAlertInfo("TODO", SUCCESS);
+        header("location: ../index.php");
+        exit();
+    }
+}
+
+setAlertInfo("TODO", DANGER);
+header("location: ../index.php");
+exit();
