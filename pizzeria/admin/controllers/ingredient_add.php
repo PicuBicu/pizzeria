@@ -14,14 +14,14 @@ if (redirectIfUserIsNotLoggedIn()) {
 function goToIngredientsWithError()
 {
     setAlertInfo(INGREDIENT_ADD_ERROR, DANGER);
-    header("location: ../index.php");
+    header("location: ../ingredients.php");
     exit();
 }
 
 function goToIngredientsWithSuccess()
 {
     setAlertInfo(INGREDIENT_ADD_SUCCESS, SUCCESS);
-    header("location: ../index.php");
+    header("location: ../ingredients.php");
     exit();
 }
 
