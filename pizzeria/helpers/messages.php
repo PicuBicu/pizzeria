@@ -22,3 +22,5 @@ define("PRODUCT_ADD_ERROR", "Wystąpił problem w trakcie dodawania produktu do 
 define("PRODUCT_ADD_SUCCESS", "Pomyślnie dodano produkt do bazy danych");
 define("INGREDIENT_ADD_ERROR", "Wystąpił problem w trakcie dodawania składnika do bazy danych");
 define("INGREDIENT_ADD_SUCCESS", "Pomyślnie dodano składnik do bazy danych");
+define("INGREDIENT_UPDATE_SUCCESS", "Pomyślnie zaktualizowano składnik w bazie danych");
+define("INGREDIENT_UPDATE_ERROR", "Pomyślnie zaktualizowano składnik w bazie danych");

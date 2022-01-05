@@ -16,7 +16,7 @@
                 </td>
                 <td class="text-end">
                     <button type="button" class="btn btn-primary">
-                        <a href="controllers/ingredient_update.php?ingredientId=<?= $row["id"] ?>">Aktualizuj</a>
+                        <a href="ingredients.php?action=update&ingredientId=<?= $row["id"] ?>&ingredientName=<?= $row["name"] ?>">Aktualizuj</a>
                     </button>
                 </td>
             </tr>

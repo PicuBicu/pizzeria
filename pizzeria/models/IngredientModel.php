@@ -10,8 +10,13 @@ class IngredientModel
         $this->db = $db;
     }
 
-    public function updateIgredientById()
+    public function updateIgredientById(int $ingredientId, string $ingredientName)
     {
+        $sql = "UPDATE ingredients SET `name` = :ingredientName WHERE id = :ingredientId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":ingredientId", $ingredientId, PDO::PARAM_INT);
+        $stmt->bindParam(":ingredientName", $ingredientName, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 
     public function addIngredient(string $ingredientName)

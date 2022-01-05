@@ -16,8 +16,15 @@ include "../helpers/alert.php";
 
 try {
 
-    if (isset($_GET["action"]) && $_GET["action"] === "add") {
-        require_once "views/ingredient-add-form.php";
+    if (isset($_GET["action"])) {
+        if ($_GET["action"] === "add") {
+            require_once "views/ingredient-add-form.php";
+        } else {
+            if (isset($_GET["ingredientName"])) {
+                $ingredientName = $_GET["ingredientName"];
+                require_once "views/ingredient-update-form.php";
+            }
+        }
     } else {
         $ingredientModel = new IngredientModel($pdo);
         $ingredientsList = $ingredientModel->getAllIngredients();
