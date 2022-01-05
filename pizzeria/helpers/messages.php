@@ -20,3 +20,5 @@ define("EMPTY_BASKET", "Koszyk jest pusty");
 define("ORDER_HAS_BEEN_CANCELLED", "Anulowano zamówienie");
 define("PRODUCT_ADD_ERROR", "Wystąpił problem w trakcie dodawania produktu do bazy danych");
 define("PRODUCT_ADD_SUCCESS", "Pomyślnie dodano produkt do bazy danych");
+define("INGREDIENT_ADD_ERROR", "Wystąpił problem w trakcie dodawania składnika do bazy danych");
+define("INGREDIENT_ADD_SUCCESS", "Pomyślnie dodano składnik do bazy danych");
