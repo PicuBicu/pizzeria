@@ -1,4 +1,4 @@
-<button class="btn btn-primary mb-2" href="controllers/product_add.php">Dodaj produkt</button>
+<button class="btn btn-primary mb-2"><a href="index.php?action=add">Dodaj produkt</a></button>
 
 <table class="table rounded">
     <thead>
@@ -32,10 +32,10 @@
                     <?= $row["duża"] ?>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary"><a href="controllers/product_update.php?foodId=<?= $row["id"] ?>">Aktualizuj</a></button>
+                    <button type="button" class="btn btn-primary"><a href="index.php?foodId=<?= $row["id"] ?>&action=update">Aktualizuj</a></button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger"><a href="controllers/product_delete.php?foodId=<?= $row["id"] ?>">Usuń</a></button>
+                    <button type="button" class="btn btn-danger"><a href="controllers/product_delete.php?foodId=<?= $row["id"] ?>&action=delete">Usuń</a></button>
                 </td>
             </tr>
         <?php endforeach; ?>

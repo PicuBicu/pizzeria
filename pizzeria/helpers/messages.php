@@ -18,4 +18,5 @@ define("PRODUCT_FETCH_ERROR", "Wystąpił bład w trakcie wyświetlania produkt�
 define("QUANTITY_OUT_OF_RANGE", "Nie jesteśmy w stanie przetworzyć podanej ilości produktów w zamówieniu");
 define("EMPTY_BASKET", "Koszyk jest pusty");
 define("ORDER_HAS_BEEN_CANCELLED", "Anulowano zamówienie");
-define("LOGGED_SUCCESSFULLY", "Zalogowano pomyślnie");
+define("PRODUCT_ADD_ERROR", "Wystąpił problem w trakcie dodawania produktu do bazy danych");
+define("PRODUCT_ADD_SUCCESS", "Pomyślnie dodano produkt do bazy danych");

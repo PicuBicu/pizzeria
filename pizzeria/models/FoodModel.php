@@ -76,4 +76,42 @@ class FoodModel
         $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function addProduct(string $productName)
+    {
+        $sql = "INSERT INTO food (`name`) VALUES (:productName)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":productName", $productName, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function addProductPrices(int $foodId, float $small, float $average, float $big)
+    {
+        $sql = "INSERT INTO food_size (food_id, `name`, price) 
+                VALUES
+                (:foodId, 'mała', :small),
+                (:foodId, 'średnia', :average),
+                (:foodId, 'duża', :big)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
+        $stmt->bindParam(":small", $small, PDO::PARAM_STR);
+        $stmt->bindParam(":average", $average, PDO::PARAM_STR);
+        $stmt->bindParam(":big", $big, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function addProductIngredients(int $foodId, array $ingredientsIds)
+    {
+        $length = count($ingredientsIds);
+        for ($i = 0; $i < $length; $i++) {
+            $sql = "INSERT INTO storage (food_id, ingredient_id) VALUES(:foodId, :ingredientId)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
+            $stmt->bindParam(":ingredientId", $ingredientsIds[$i], PDO::PARAM_INT);
+            if (!$stmt->execute()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
