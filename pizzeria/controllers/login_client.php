@@ -54,8 +54,16 @@ if (strlen($errors) == 0 && strlen($password) < 255) {
         $_SESSION["firstName"] = $clientData["first_name"];
         $_SESSION["lastName"] = $clientData["last_name"];
         $_SESSION["email"] = $clientData["email"];
+        $_SESSION["role"] = $clientData["role"];
         $basketModel = new BasketModel($pdo);
         $_SESSION["basketCount"] = $basketModel->countItemsUserBasket($clientData["id"]);
+        if ($_SESSION["role"] === "ADMIN") {
+            goToLocationWithSuccess("location: ../admin/index.php", LOGIN_CLIENT_SUCCESS);
+        } else {
+            goToLocationWithSuccess("location: ../menu.php", LOGIN_CLIENT_SUCCESS);
+        }
+
+
         goToLocationWithSuccess("location: ../menu.php", LOGIN_CLIENT_SUCCESS);
     }
 }
