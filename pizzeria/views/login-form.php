@@ -1,11 +1,11 @@
 <div class="d-flex flex-row justify-content-center align-items-center">
-    <h2>Logowanie</h2>
-</div>
-<div class="d-flex flex-row justify-content-center align-items-center">
-    <p>Proszę wypełnić te pola by się zalogować</p>
-</div>
-<div class="d-flex flex-row justify-content-center align-items-center">
     <form action="handle_login.php" method="post">
+        <div class="d-flex flex-row justify-content-center align-items-center">
+            <h2>Logowanie</h2>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center">
+            <p>Proszę wypełnić te pola by się zalogować</p>
+        </div>
         <div class="mb-3">
             <label class="form-label" for="email">Email:</label>
             <input type="text" name="email" class="form-control">
