@@ -21,6 +21,13 @@ function validateAddressField($field)
     return false;
 }
 
+function goToOrdersWithError($location)
+{
+    setAlertInfo(ADDRESS_SAVE_ERROR, DANGER);
+    header($location);
+    exit();
+}
+
 if (
     validateAddressField($_POST["street"]) &&
     validateAddressField($_POST["houseNumber"]) &&
@@ -29,6 +36,11 @@ if (
     $street = filter_input(INPUT_POST, "street", FILTER_SANITIZE_STRING);
     $houseNumber = filter_input(INPUT_POST, "houseNumber", FILTER_SANITIZE_STRING);
     $city = filter_input(INPUT_POST, "city", FILTER_SANITIZE_STRING);
+
+    if (!$street || !$houseNumber || !$city) {
+        goToOrdersWithError($location);
+    }
+
     $clientId = $_SESSION["clientId"];
 
     $addressModel = new AddressModel($pdo);
@@ -38,6 +50,4 @@ if (
         exit();
     }
 }
-setAlertInfo(ADDRESS_SAVE_ERROR, DANGER);
-header($location);
-exit();
+goToOrdersWithError($location);
