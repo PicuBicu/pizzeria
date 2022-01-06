@@ -1,15 +1,17 @@
 <?php
 
-require_once "config.php";
-require_once "helpers/utils.php";
-require_once "helpers/messages.php";
-require_once "helpers/alert-types.php";
-require_once "models/BasketModel.php";
+require_once "../config.php";
+require_once "../helpers/utils.php";
+require_once "../helpers/messages.php";
+require_once "../helpers/alert-types.php";
+require_once "../models/BasketModel.php";
 
 session_start();
 if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
+
+$location = "location: ../orders.php";
 
 if (isset($_POST["quantity"]) && isset($_POST["id"])) {
     $quantities = [];
@@ -20,7 +22,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
         $quantities[] = filter_var($row, FILTER_SANITIZE_NUMBER_INT);
         if ($row > 5 || $row < 1) {
             setAlertInfo(ORDER_QUANTITY_OUT_OF_RANGE, WARNING);
-            header("location: orders.php");
+            header($location);
             exit();
         }
     }
@@ -32,14 +34,14 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
     $basketModel = new BasketModel($pdo);
     if (!$basketModel->updateBasket($clientId, $quantities, $ids)) {
         setAlertInfo(BASKET_SAVE_ERROR, DANGER);
-        header("location: orders.php");
+        header($location);
         exit();
     }
 
     setAlertInfo(BASKET_SAVE_SUCCESS, SUCCESS);
-    header("location: orders.php");
+    header($location);
     exit();
 }
 setAlertInfo(BASKET_SAVE_ERROR, DANGER);
-header("location: orders.php");
+header($location);
 exit();

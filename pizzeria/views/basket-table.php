@@ -1,8 +1,7 @@
-<h3>Koszyk</h3>
 <?php if (!$blocked) : ?>
-    <form action="save_basket.php" method="post">
+    <form action="controllers/basket_save.php" method="post">
     <?php endif; ?>
-
+    <h3>Koszyk</h3>
     <table class="table rounded">
         <thead>
             <tr>
@@ -49,7 +48,6 @@
                             <?= $row["quantity"] ?>
                         </td>
                     <?php endif; ?>
-
                 </tr>
             <?php endforeach; ?>
         </tbody>

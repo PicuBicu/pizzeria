@@ -23,12 +23,13 @@ try {
     $foodListLength = count($foodList);
     $blocked = false;
     if ($foodListLength > 0) {
-        require_once "views/basket.php";
+        require_once "views/basket-table.php";
         $addressModel = new AddressModel($pdo);
         $clientAddressesNum = $addressModel->getClientAddressesNumber($clientId);
         if ($clientAddressesNum <= 0) {
-            require_once "views/new-address-form.php";
+            require_once "views/address-add-form.php";
         } else {
+            require_once "views/address-add-form.php";
             require_once "views/proccess-order.php";
         }
     } else {

@@ -1,5 +1,5 @@
-<h2>Wprowadź dostawy</h2>
-<form action="add_new_adress.php" method="post">
+<form action="controllers/address_add.php" method="post">
+    <h2>Wprowadź adres dostawy</h2>
     <label for="street">Ulica:</label>
     <input type="text" name="street" class="form-control" />
     <label for="houseNumber">Numer domu:</label>

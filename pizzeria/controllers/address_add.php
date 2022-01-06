@@ -1,15 +1,17 @@
 <?php
 
-require_once "config.php";
-require_once "helpers/alert-types.php";
-require_once "helpers/messages.php";
-require_once "helpers/utils.php";
-require_once "models/AddressModel.php";
+require_once "../config.php";
+require_once "../helpers/alert-types.php";
+require_once "../helpers/messages.php";
+require_once "../helpers/utils.php";
+require_once "../models/AddressModel.php";
 
 session_start();
 if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
+
+$location = "location: ../orders.php";
 
 function validateAddressField($field)
 {
@@ -32,10 +34,10 @@ if (
     $addressModel = new AddressModel($pdo);
     if ($addressModel->addNewAddress($clientId, $street, $houseNumber, $city)) {
         setAlertInfo(ADDRESS_SAVE_SUCCESS, SUCCESS);
-        header("location: orders.php");
+        header($location);
         exit();
     }
 }
 setAlertInfo(ADDRESS_SAVE_ERROR, DANGER);
-header("location: orders.php");
+header($location);
 exit();

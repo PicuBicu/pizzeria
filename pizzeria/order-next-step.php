@@ -24,7 +24,7 @@ try {
         header("location: orders.php");
         exit();
     }
-    require_once "views/basket.php";
+    require_once "views/basket-table.php";
 
     $addressModel = new AddressModel($pdo);
     $addressesList = $addressModel->getClientAddresses($clientId);
