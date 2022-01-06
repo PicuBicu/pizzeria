@@ -12,19 +12,30 @@ if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
 
+function parseIgredients(string $ingredients)
+{
+    return explode(", ", $ingredients);
+}
+
 require_once "common/header.php";
 include "../helpers/alert.php";
 
 try {
     if (isset($_GET["action"])) {
+        $ingredientModel = new IngredientModel($pdo);
+        $foodModel = new FoodModel($pdo);
         if ($_GET["action"] === "add") {
-            $ingredientModel = new IngredientModel($pdo);
             $ingredientsList = $ingredientModel->getAllIngredients();
             if ($ingredientsList) {
                 require_once "views/food-add-form.php";
             }
-        } else if ($_GET["action"] === "update") {
-            require_once "views/food-update-form.php";
+        } else if ($_GET["action"] === "update" && isset($_GET["foodId"])) {
+            $food = $foodModel->getProductWithDetailsById($_GET["foodId"]);
+            $ingredientsList = $ingredientModel->getAllIngredients();
+            $fromDatabase = parseIgredients($food["ingredients"]);
+            if ($food && $ingredientsList) {
+                require_once "views/food-update-form.php";
+            }
         }
     } else {
         $foodModel = new FoodModel($pdo);
