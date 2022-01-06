@@ -26,6 +26,8 @@ define("INGREDIENT_UPDATE_SUCCESS", "Wystąpił problem w trakcie aktualizacji s
 
 define("PRODUCT_ADD_ERROR", "Wystąpił problem w trakcie dodawania produktu do bazy danych");
 define("PRODUCT_ADD_SUCCESS", "Pomyślnie dodano produkt do bazy danych");
+define("PRODUCT_DELETE_ERROR", "Wystąpił problem w trakcie usuwania produktu z bazy danych");
+define("PRODUCT_DELETE_SUCCESS", "Pomyślnie usunięto produkt do bazy danych");
 define("PRODUCT_UPDATE_ERROR", "Wystąpił problem w trakcie aktualizacji produktu w bazie danych");
 define("PRODUCT_UPDATE_SUCCESS", "Pomyślnie zaktualizowano produkt w bazie danych");
 define("PRODUCT_NOT_FOUND", "Nie posiadamy podanego produktu");

@@ -17,12 +17,12 @@ if (isset($_GET["foodId"])) {
     $clientId = $_SESSION["clientId"];
     $foodModel = new FoodModel($pdo);
     if ($foodModel->deleteProductById($foodSizeId)) {
-        setAlertInfo("TODO", SUCCESS);
+        setAlertInfo(PRODUCT_DELETE_SUCCESS, SUCCESS);
         header("location: ../index.php");
         exit();
     }
 }
 
-setAlertInfo("TODO", DANGER);
+setAlertInfo(PRODUCT_DELETE_ERROR, DANGER);
 header("location: ../index.php");
 exit();
