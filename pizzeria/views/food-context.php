@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <h4 class="card-title"><?= $foodDetails["name"] ?></h4>
                             <p class="card-text"><?= $foodDetails["ingredients"] ?></p>
-                            <form action="add_to_basket.php?foodId=<?= $foodId ?>" method="post">
+                            <form action="controllers/basket_add.php?foodId=<?= $foodId ?>" method="post">
                                 <div class="hstack gap-2 mb-2">
                                     <label class="form-label" for="size" style="width: 100px">Rozmiar: </label>
                                     <select class="form-select form-select" name="size" style="width: 125px">
