@@ -1,5 +1,5 @@
 <div class="d-flex flex-row justify-content-center align-items-center">
-    <form action="handle_login.php" method="post">
+    <form action="controllers/login_client.php" method="post">
         <div class="d-flex flex-row justify-content-center align-items-center">
             <h2>Logowanie</h2>
         </div>

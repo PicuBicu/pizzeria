@@ -1,6 +1,8 @@
 <?php
 define("DATABASE_EXCEPTION", "Problem z przetwarzaniem bazy danych, spróbuj ponownie później");
 
+define("LOGIN_CLIENT_SUCCESS", "Zalogowano pomyślnie");
+
 define("BASKET_ADD_PRODUCT_ERROR", "Wystąpił problem podczas wstawiania elementu do koszyka");
 define("BASKET_ADD_PRODUCT_SUCCESS", "Pomyślnie dodano produkt do koszyka");
 define("BASKET_ALREADY_HAS_THIS_PRODUCT", "Podany produkt znajduje się już w koszyku");
