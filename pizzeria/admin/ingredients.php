@@ -11,6 +11,8 @@ if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
 
+redirectIfNotEnoughPermisions();
+
 require_once "common/header.php";
 include "../helpers/alert.php";
 

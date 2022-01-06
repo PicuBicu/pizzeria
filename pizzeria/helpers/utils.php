@@ -18,7 +18,11 @@ function redirectIfUserIsNotLoggedIn()
 function redirectIfUserIsLoggedIn()
 {
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-        header("location: menu.php");
+        if (isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN") {
+            header("location: admin/index.php");
+        } else {
+            header("location: menu.php");
+        }
         return true;
     }
     return false;
@@ -52,4 +56,11 @@ function validateAddressField($field)
         return true;
     }
     return false;
+}
+
+function redirectIfNotEnoughPermisions()
+{
+    if (isset($_SESSION["role"]) && $_SESSION["role"] === "USER") {
+        goToLocationWithWarning("location: ../menu.php", PERMISSION_DENIED);
+    }
 }

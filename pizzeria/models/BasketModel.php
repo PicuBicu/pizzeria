@@ -12,7 +12,7 @@ class BasketModel
 
     public function countItemsUserBasket(int $clientId)
     {
-        $sql = "SELECT COUNT(*) FROM basket WHERE client_id = :clientId 
+        $sql = "SELECT COUNT(*) AS `count` FROM basket WHERE client_id = :clientId 
         AND is_realised = 0 AND order_id IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
@@ -23,7 +23,6 @@ class BasketModel
         } else {
             return $row["count"];
         }
-        return ($stmt->rowCount() > 0);
     }
 
     public function checkIfProductIsInBasket(int $clientId, int $foodId, string $size): bool

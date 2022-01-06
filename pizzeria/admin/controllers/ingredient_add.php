@@ -11,6 +11,8 @@ if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
 
+redirectIfNotEnoughPermisions();
+
 function goToIngredientsWithError()
 {
     setAlertInfo(INGREDIENT_ADD_ERROR, DANGER);

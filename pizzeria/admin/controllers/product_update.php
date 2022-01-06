@@ -12,6 +12,8 @@ if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
 
+redirectIfNotEnoughPermisions();
+
 function goToIndexWithError()
 {
     setAlertInfo(PRODUCT_UPDATE_ERROR, DANGER);

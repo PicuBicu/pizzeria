@@ -12,6 +12,8 @@ if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
 
+redirectIfNotEnoughPermisions();
+
 function parseIgredients(string $ingredients)
 {
     return explode(", ", $ingredients);

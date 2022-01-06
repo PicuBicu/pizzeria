@@ -2,6 +2,7 @@
 define("DATABASE_EXCEPTION", "Problem z przetwarzaniem bazy danych, spróbuj ponownie później");
 
 define("LOGIN_CLIENT_SUCCESS", "Zalogowano pomyślnie");
+define("PERMISSION_DENIED", "Brak uprawnień by zobaczyć tę stronę");
 
 define("BASKET_ADD_PRODUCT_ERROR", "Wystąpił problem podczas wstawiania elementu do koszyka");
 define("BASKET_ADD_PRODUCT_SUCCESS", "Pomyślnie dodano produkt do koszyka");

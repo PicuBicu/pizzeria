@@ -11,6 +11,8 @@ if (redirectIfUserIsNotLoggedIn()) {
     exit();
 }
 
+redirectIfNotEnoughPermisions();
+
 if (isset($_GET["foodId"])) {
 
     $foodSizeId = filter_input(INPUT_GET, "foodId", FILTER_SANITIZE_NUMBER_INT);
