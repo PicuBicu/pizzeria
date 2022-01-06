@@ -21,14 +21,14 @@ try {
         $foodId = filter_input(INPUT_GET, 'foodId', FILTER_SANITIZE_NUMBER_INT);
         $foodDetails = $foodModel->getProductWithDetailsById($foodId);
         if (!$foodDetails) {
-            setAlertInfo(CANNOT_FIND_PRODUCT, WARNING);
+            setAlertInfo(PRODUCT_NOT_FOUND, WARNING);
             header("location: menu.php#foodId=$foodId");
             exit();
         } else {
             require_once "views/food-context.php";
         }
     } else {
-        setAlertInfo(CANNOT_FIND_PRODUCT, WARNING);
+        setAlertInfo(PRODUCT_NOT_FOUND, WARNING);
         header("location: menu.php");
         exit();
     }

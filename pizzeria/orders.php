@@ -32,7 +32,7 @@ try {
             require_once "views/proccess-order.php";
         }
     } else {
-        setAlertInfo(EMPTY_BASKET, WARNING);
+        setAlertInfo(BASKET_EMPTY, WARNING);
         include "helpers/alert.php";
     }
 } catch (PDOException $exp) {

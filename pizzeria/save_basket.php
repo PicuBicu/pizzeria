@@ -19,7 +19,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
     foreach ($_POST["quantity"] as $row) {
         $quantities[] = filter_var($row, FILTER_SANITIZE_NUMBER_INT);
         if ($row > 5 || $row < 1) {
-            setAlertInfo(QUANTITY_OUT_OF_RANGE, WARNING);
+            setAlertInfo(ORDER_QUANTITY_OUT_OF_RANGE, WARNING);
             header("location: orders.php");
             exit();
         }

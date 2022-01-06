@@ -17,11 +17,11 @@ if (isset($_GET["foodSizeId"])) {
     $basketModel = new BasketModel($pdo);
     if ($basketModel->deleteFromBasket($clientId, $foodSizeId)) {
         $_SESSION["basketCount"] = $_SESSION["basketCount"] - 1 <= 0 ? 0 : $_SESSION["basketCount"] -  1;
-        setAlertInfo(DELETE_FROM_BASKET_SUCCESS, SUCCESS);
+        setAlertInfo(BASKET_DELETE_PRODUCT_SUCCESS, SUCCESS);
         header("location: orders.php");
         exit();
     }
 }
-setAlertInfo(DELETE_FROM_BASKET_ERROR, DANGER);
+setAlertInfo(BASKET_DELETE_PRODUCT_ERROR, DANGER);
 header("location: orders.php");
 exit();

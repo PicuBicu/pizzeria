@@ -20,7 +20,7 @@ try {
     $clientId = $_SESSION["clientId"];
     $foodList = $basketModel->getProductsFromBasket($clientId);
     if (!$foodList) {
-        setAlertInfo(EMPTY_BASKET, WARNING);
+        setAlertInfo(BASKET_EMPTY, WARNING);
         header("location: orders.php");
         exit();
     }
@@ -29,7 +29,7 @@ try {
     $addressModel = new AddressModel($pdo);
     $addressesList = $addressModel->getClientAddresses($clientId);
     if (!$addressesList) {
-        setAlertInfo(NO_ADDRESS_TO_SELECT, WARNING);
+        setAlertInfo(ADDRESS_UNABLE_TO_SELECT, WARNING);
         header("location: orders.php");
         exit();
     }

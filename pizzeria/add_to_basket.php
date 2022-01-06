@@ -22,7 +22,7 @@ if (
     $quantity = filter_input(INPUT_POST, "quantity", FILTER_SANITIZE_NUMBER_INT);
 
     if ($quantity > 5 || $quantity < 1) {
-        setAlertInfo(QUANTITY_OUT_OF_RANGE, WARNING);
+        setAlertInfo(ORDER_QUANTITY_OUT_OF_RANGE, WARNING);
         header("location: food-details.php?foodId=$foodId");
         exit();
     }
@@ -34,7 +34,7 @@ if (
     $basketModel = new BasketModel($pdo);
 
     if ($basketModel->checkIfProductIsInBasket($clientId, $foodId, $size)) {
-        setAlertInfo(PRODUCT_ALREADY_IN_BASKET, WARNING);
+        setAlertInfo(BASKET_ALREADY_HAS_THIS_PRODUCT, WARNING);
         header("location: food-details.php?foodId=$foodId");
         exit();
     }
@@ -42,19 +42,19 @@ if (
     $foodModel = new FoodModel($pdo);
     $foodSizeId = $foodModel->getFoodSizeIdByFoodId($foodId, $size);
     if (!$foodSizeId) {
-        setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
+        setAlertInfo(BASKET_ADD_PRODUCT_ERROR, "danger");
         header("location: menu.php#foodId=$foodId");
         exit();
     }
 
     if ($basketModel->addNewProductToBasket($foodSizeId, $clientId, $quantity)) {
         $_SESSION["basketCount"] += 1;
-        setAlertInfo(ADD_TO_BASKET_SUCCESS, SUCCESS);
+        setAlertInfo(BASKET_ADD_PRODUCT_SUCCESS, SUCCESS);
         header("location: menu.php#foodId=$foodId");
         exit();
     }
 }
 
-setAlertInfo(ADD_TO_BASKET_ERROR, "danger");
+setAlertInfo(BASKET_ADD_PRODUCT_ERROR, "danger");
 header("location: menu.php#foodId=$foodId");
 exit();
