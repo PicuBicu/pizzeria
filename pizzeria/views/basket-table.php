@@ -1,8 +1,10 @@
 <?php if (!$blocked) : ?>
     <form action="controllers/basket_save.php" method="post">
+        <h3>Koszyk</h3>
+
     <?php endif; ?>
-    <h3>Koszyk</h3>
     <table class="table rounded">
+
         <thead>
             <tr>
                 <th scope="col">Nazwa</th>
@@ -41,13 +43,14 @@
                             <button type="button" class="btn btn-primary calculateButton">Przelicz</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger"><a href="delete_from_basket.php?foodSizeId=<?= $row["id"] ?>">Usuń</a></button>
+                            <button type="button" class="btn btn-danger"><a href="controllers/basket_delete.php?foodSizeId=<?= $row["id"] ?>">Usuń</a></button>
                         </td>
                     <?php else : ?>
                         <td>
                             <?= $row["quantity"] ?>
                         </td>
                     <?php endif; ?>
+
                 </tr>
             <?php endforeach; ?>
         </tbody>
