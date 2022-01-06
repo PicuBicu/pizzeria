@@ -114,4 +114,26 @@ class FoodModel
         }
         return true;
     }
+
+    public function updateProductById(int $foodId, string $foodName)
+    {
+        $sql = "UPDATE food SET `name` = :foodName WHERE id = :foodId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
+        $stmt->bindParam(":foodName", $foodName, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function updateProductPricesByFoodId(int $foodId, float $small, float $average, float $big)
+    {
+        $sql = "UPDATE food_size SET price = :small WHERE id = :foodId AND `name` = 'mała';
+                UPDATE food_size SET price = :average WHERE id = :foodId AND `name` = 'średnia';
+                UPDATE food_size SET price = :big WHERE id = :foodId AND `name` = 'duża';";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
+        $stmt->bindParam(":small", $small, PDO::PARAM_STR);
+        $stmt->bindParam(":average", $average, PDO::PARAM_STR);
+        $stmt->bindParam(":big", $big, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
 }

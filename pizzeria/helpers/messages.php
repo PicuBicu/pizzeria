@@ -18,9 +18,13 @@ define("PRODUCT_FETCH_ERROR", "Wystąpił bład w trakcie wyświetlania produkt�
 define("QUANTITY_OUT_OF_RANGE", "Nie jesteśmy w stanie przetworzyć podanej ilości produktów w zamówieniu");
 define("EMPTY_BASKET", "Koszyk jest pusty");
 define("ORDER_HAS_BEEN_CANCELLED", "Anulowano zamówienie");
-define("PRODUCT_ADD_ERROR", "Wystąpił problem w trakcie dodawania produktu do bazy danych");
-define("PRODUCT_ADD_SUCCESS", "Pomyślnie dodano produkt do bazy danych");
+
 define("INGREDIENT_ADD_ERROR", "Wystąpił problem w trakcie dodawania składnika do bazy danych");
 define("INGREDIENT_ADD_SUCCESS", "Pomyślnie dodano składnik do bazy danych");
-define("INGREDIENT_UPDATE_SUCCESS", "Pomyślnie zaktualizowano składnik w bazie danych");
 define("INGREDIENT_UPDATE_ERROR", "Pomyślnie zaktualizowano składnik w bazie danych");
+define("INGREDIENT_UPDATE_SUCCESS", "Wystąpił problem w trakcie aktualizacji składnika w bazie danych");
+
+define("PRODUCT_ADD_ERROR", "Wystąpił problem w trakcie dodawania produktu do bazy danych");
+define("PRODUCT_ADD_SUCCESS", "Pomyślnie dodano produkt do bazy danych");
+define("PRODUCT_UPDATE_ERROR", "Wystąpił problem w trakcie aktualizacji produktu w bazie danych");
+define("PRODUCT_UPDATE_SUCCESS", "Pomyślnie zaktualizowano produkt w bazie danych");

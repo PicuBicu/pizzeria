@@ -34,4 +34,12 @@ class IngredientModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function deleteIngredientsByFoodId(int $foodId)
+    {
+        $sql = "DELETE FROM storage WHERE food_id = :foodId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":foodId", $foodId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
