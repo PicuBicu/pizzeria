@@ -1,8 +1,9 @@
 <?php
 
+require_once "config.php";
 require_once "helpers/utils.php";
 require_once "helpers/messages.php";
-require_once "helpers/alert-types.php";
+require_once "models/FoodModel.php";
 
 session_start();
 if (redirectIfUserIsNotLoggedIn()) {
@@ -12,30 +13,24 @@ if (redirectIfUserIsNotLoggedIn()) {
 require_once "header.php";
 require_once "helpers/alert.php";
 
-try {
-    require_once "config.php";
-    require_once "models/FoodModel.php";
+$location = "location: menu.php";
 
+try {
     if (isset($_GET["foodId"])) {
         $foodModel = new FoodModel($pdo);
         $foodId = filter_input(INPUT_GET, 'foodId', FILTER_SANITIZE_NUMBER_INT);
         $foodDetails = $foodModel->getProductWithDetailsById($foodId);
-        if (!$foodDetails) {
-            setAlertInfo(PRODUCT_NOT_FOUND, WARNING);
-            header("location: menu.php#foodId=$foodId");
-            exit();
+        if (!$foodId || !$foodDetails) {
+            goToLocationWithWarning($location, PRODUCT_NOT_FOUND);
         } else {
             require_once "views/food-context.php";
         }
     } else {
-        setAlertInfo(PRODUCT_NOT_FOUND, WARNING);
-        header("location: menu.php");
-        exit();
+        goToLocationWithWarning($location, PRODUCT_NOT_FOUND);
     }
 } catch (PDOException $exp) {
-    setAlertInfo(DATABASE_EXCEPTION, DANGER);
-    header("location: menu.php");
-    exit();
+    require_once "footer.php";
+    goToLocationWithError($location, DATABASE_EXCEPTION);
 }
 
 require_once "footer.php";
