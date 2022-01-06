@@ -15,7 +15,7 @@
 
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
-            <a href="menu.php" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <a href="index.php" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                 <img height="50px" width="50px" role="img" aria-label="Bootstrap" src="/img/pizza.png" />
                 <h1 class="display-6 display-primary my-2" style="color:#fff">Pizzeria</h1>
             </a>
@@ -27,17 +27,15 @@
             </ul>
 
             <div class="col-md-3 text-end">
-
                 <?php if (isset($_SESSION)) : ?>
                     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) : ?>
-                        <button type="button" class="btn btn-primary"><a href="logout.php">Wyloguj się</a></button>
+                        <button type="button" class="btn btn-primary"><a href="../logout.php">Wyloguj się</a></button>
                     <?php else : ?>
-                        <button type="button" class="btn btn-outline-primary me-2"><a href="login.php">Zaloguj się</a></button>
-                        <button type="button" class="btn btn-primary"><a href="register.php">Zarejestruj się</a></button>
+                        <button type="button" class="btn btn-outline-primary me-2"><a href="../login.php">Zaloguj się</a></button>
+                        <button type="button" class="btn btn-primary"><a href="../register.php">Zarejestruj się</a></button>
                     <?php endif; ?>
-
                 <?php endif; ?>
-
             </div>
+
         </header>
         <main style="min-height:700px;">
