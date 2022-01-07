@@ -53,6 +53,29 @@ class OrderModel
         return $stmt->fetchAll();
     }
 
+    public function getAllClientOrders(int $clientId)
+    {
+        $sql = "SELECT
+            o.id,
+            o.information_for_courier,
+            o.order_date,
+            ca.city,
+            ca.house_number,
+            ca.street,
+            os.name
+        FROM
+            `order` AS o,
+            client_address AS ca,
+            order_status AS os
+        WHERE
+            ca.id = o.`address_id` AND os.id = o.order_status_id;
+            AND o.client_id = :clientId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function getOrderById(int $orderId)
     {
         $sql = "SELECT
@@ -73,6 +96,32 @@ class OrderModel
         AND o.id = :orderId";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getClientOrderById(int $clientId, int $orderId)
+    {
+        $sql = "SELECT
+        o.id,
+        o.information_for_courier,
+        o.order_date,
+        ca.city,
+        ca.house_number,
+        ca.street,
+        os.name
+    FROM
+        `order` AS o,
+        client_address AS ca,
+        order_status AS os
+    WHERE
+        ca.id = o.`address_id` 
+        AND os.id = o.order_status_id
+        AND o.id = :orderId
+        AND o.client_id = :clientId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
+        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch();
     }
