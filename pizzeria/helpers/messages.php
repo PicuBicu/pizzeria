@@ -21,6 +21,10 @@ define("ORDER_SAVE_ERROR", "Wystąpił problem w trakcie przetwarzania twojego z
 define("ORDER_SAVE_SUCCESS", "Twoje zamówienie jest w trakcie realizacji");
 define("ORDER_QUANTITY_OUT_OF_RANGE", "Nie jesteśmy w stanie przetworzyć podanej ilości produktów w zamówieniu");
 define("ORDER_HAS_BEEN_CANCELLED", "Anulowano zamówienie");
+define("ORDER_NOT_FOUND", "Nie znaleziono szczegółów danego zamówienia");
+define("ORDER_FETCH_ERROR", "Wystąpił problem w trakcie wczytywania listy zamówień");
+define("ORDER_STATUS_CHANGE_ERROR", "Wystąpił problem w trakcie zmiany statusu zamówienia");
+define("ORDER_STATUS_CHANGE_SUCCESS", "Pomyślnie zmieniono status zamówienia");
 
 define("INGREDIENT_ADD_ERROR", "Wystąpił problem w trakcie dodawania składnika do bazy danych");
 define("INGREDIENT_ADD_SUCCESS", "Pomyślnie dodano składnik do bazy danych");

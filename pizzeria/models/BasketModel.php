@@ -116,4 +116,24 @@ class BasketModel
         }
         return true;
     }
+
+    public function getBasketByOrderId(int $orderId)
+    {
+        $sql = "SELECT food_size.id, food_size.name AS size_name, food_size.price, basket.quantity, f.name, skl.ingredients 
+        FROM basket, food_size, food AS f, 
+        ( SELECT f.id AS X, f.name, GROUP_CONCAT(i.name SEPARATOR ', ') 
+        AS ingredients 
+        FROM food AS f, ingredients AS i, STORAGE AS s 
+        WHERE s.food_id = f.id 
+        AND s.ingredient_id = i.id 
+        GROUP BY f.id ) AS skl 
+        WHERE f.id = skl.x 
+        AND food_size.food_id = f.id 
+        AND basket.food_size_id = food_size.id
+        AND basket.order_id = :orderId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

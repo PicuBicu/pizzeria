@@ -27,3 +27,6 @@ button a:hover {
   cursor: pointer;
   color: white !important;
 }
+td form {
+  padding: 0px;
+}
