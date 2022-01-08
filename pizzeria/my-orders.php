@@ -33,9 +33,7 @@ try {
     } else {
         $orderList = $orderModel->getAllClientOrders($clientId);
         $orderStatusesList = $orderModel->getAllStatuses();
-        if ($orderList && $orderStatusesList) {
-            require_once "views/orders-table.php";
-        }
+        require_once "views/orders-table.php";
     }
 } catch (PDOException $exp) {
     goToLocationWithError($location, DATABASE_EXCEPTION);

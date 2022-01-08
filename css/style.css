@@ -30,3 +30,14 @@ button a:hover {
 td form {
   padding: 0px;
 }
+.no-data,
+.header-title {
+  background-color: rgba(77, 1, 1, 0.5);
+  color: #fff;
+  padding: 20px;
+}
+.no-data {
+  background-color: rgba(77, 1, 1, 0.5);
+  color: #fff;
+  padding: 20px;
+}
