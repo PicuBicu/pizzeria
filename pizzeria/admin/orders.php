@@ -32,9 +32,7 @@ try {
     } else {
         $orderList = $orderModel->getAllOrders();
         $orderStatusesList = $orderModel->getAllStatuses();
-        if (!$orderList || !$orderStatusesList) {
-            goToLocationWithWarning("location: orders.php", ORDER_FETCH_ERROR);
-        } else {
+        if ($orderList && $orderStatusesList) {
             require_once "views/orders-table.php";
         }
     }
