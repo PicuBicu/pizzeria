@@ -33,7 +33,7 @@ try {
     } else {
         $orderList = $orderModel->getAllClientOrders($clientId);
         $orderStatusesList = $orderModel->getAllStatuses();
-        if ($orderList || $orderStatusesList) {
+        if ($orderList && $orderStatusesList) {
             require_once "views/orders-table.php";
         }
     }
