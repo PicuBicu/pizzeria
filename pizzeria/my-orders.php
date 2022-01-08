@@ -33,9 +33,7 @@ try {
     } else {
         $orderList = $orderModel->getAllClientOrders($clientId);
         $orderStatusesList = $orderModel->getAllStatuses();
-        if (!$orderList || !$orderStatusesList) {
-            goToLocationWithWarning($location, ORDER_FETCH_ERROR);
-        } else {
+        if ($orderList || $orderStatusesList) {
             require_once "views/orders-table.php";
         }
     }
