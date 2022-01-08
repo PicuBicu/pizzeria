@@ -21,7 +21,7 @@ class AddressModel
 
     public function getClientAddressesNumber(int $clientId): int
     {
-        $sql = "SELECT COUNT(*) AS num FROM client_address WHERE client_id = 17 GROUP BY client_id";
+        $sql = "SELECT COUNT(*) AS num FROM client_address WHERE client_id = :clientId GROUP BY client_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
         $stmt->execute();
