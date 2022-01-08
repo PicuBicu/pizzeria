@@ -12,8 +12,9 @@ class ClientModel
     public function getClientByEmail(string $email)
     {
         $sql = "SELECT client.id, `client_role`.name AS `role`, client.first_name, client.last_name, contact_data.email, client.`password` 
-            FROM client, `client_role` 
-            WHERE email = :email AND `client_role`.id = client.client_role_id
+            FROM client, `client_role`, contact_data
+            WHERE email = :email 
+            AND `client_role`.id = client.client_role_id
             AND contact_data.client_id = client.id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":email", $email, PDO::PARAM_STR);
