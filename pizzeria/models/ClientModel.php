@@ -62,4 +62,21 @@ class ClientModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function getEmailByClientId(int $clientId, int $contactDataId)
+    {
+        $sql = "SELECT cd.email 
+            FROM 
+                contact_data AS cd, 
+                `order` AS o 
+            WHERE 
+                o.client_id = :clientId AND
+                o.contact_data_id = :contactDataId AND
+                o.contact_data_Id = cd.id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
+        $stmt->bindParam(":contactDataId", $contactDataId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 }
