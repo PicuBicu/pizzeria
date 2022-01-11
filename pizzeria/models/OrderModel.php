@@ -42,13 +42,18 @@ class OrderModel
             ca.city,
             ca.house_number,
             ca.street,
-            os.name
+            os.name,
+            cd.email,
+            cd.phone_number
         FROM
             `order` AS o,
             client_address AS ca,
             order_status AS os
+            contact_data AS cd
         WHERE
-            ca.id = o.`address_id` AND os.id = o.order_status_id;";
+            ca.id = o.`address_id` AND
+            os.id = o.order_status_id
+            cd.id = o.contact_data_id;";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -63,14 +68,19 @@ class OrderModel
             ca.city,
             ca.house_number,
             ca.street,
-            os.name
+            os.name,
+            cd.email,
+            cd.phone_number
         FROM
             `order` AS o,
             client_address AS ca,
-            order_status AS os
+            order_status AS os,
+            contact_data AS cd
         WHERE
-            ca.id = o.`address_id` AND os.id = o.order_status_id;
-            AND o.client_id = :clientId";
+            ca.id = o.`address_id` AND 
+            os.id = o.order_status_id AND
+            cd.id = o.contact_data_id AND
+            o.client_id = :clientId;";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
         $stmt->execute();
@@ -86,15 +96,19 @@ class OrderModel
         ca.city,
         ca.house_number,
         ca.street,
-        os.name
+        os.name,
+        cd.email,
+        cd.phone_number
     FROM
         `order` AS o,
         client_address AS ca,
-        order_status AS os
+        order_status AS os,
+        contact_data AS cd
     WHERE
         ca.id = o.`address_id` 
         AND os.id = o.order_status_id
-        AND o.id = :orderId";
+        AND o.id = :orderId
+        AND cd.id = o.contact_data_id;";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
         $stmt->execute();
@@ -110,16 +124,20 @@ class OrderModel
         ca.city,
         ca.house_number,
         ca.street,
-        os.name
+        os.name,
+        cd.email,
+        cd.phone_number
     FROM
         `order` AS o,
         client_address AS ca,
-        order_status AS os
+        order_status AS os,
+        contact_data AS cd
     WHERE
         ca.id = o.`address_id` 
         AND os.id = o.order_status_id
         AND o.id = :orderId
-        AND o.client_id = :clientId";
+        AND o.client_id = :clientId
+        AND o.contact_data_id = cd.id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":orderId", $orderId, PDO::PARAM_INT);
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
@@ -129,8 +147,7 @@ class OrderModel
 
     public function getAllStatuses()
     {
-        $sql = "SELECT
-        * FROM order_status";
+        $sql = "SELECT id, `name` FROM order_status";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();

@@ -23,16 +23,15 @@ try {
     $clientId = $_SESSION["clientId"];
     if (isset($_GET["orderId"])) {
         $orderId = filter_input(INPUT_GET, "orderId", FILTER_SANITIZE_NUMBER_INT);
-        $orderItem = $orderModel->getClientOrderById($clientId, $orderId);
-        $basketList = $basketModel->getBasketByOrderId($orderId);
-        if (!$orderId || !$orderItem || !$basketList) {
+        if (!$orderId) {
             goToLocationWithWarning($location, ORDER_NOT_FOUND);
         } else {
+            $orderItem = $orderModel->getClientOrderById($clientId, $orderId);
+            $basketList = $basketModel->getBasketByOrderId($orderId);
             require_once "views/order-item.php";
         }
     } else {
         $orderList = $orderModel->getAllClientOrders($clientId);
-        $orderStatusesList = $orderModel->getAllStatuses();
         require_once "views/orders-table.php";
     }
 } catch (PDOException $exp) {
