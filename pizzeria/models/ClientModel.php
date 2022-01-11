@@ -53,4 +53,13 @@ class ClientModel
         $stmt->bindParam(":phoneNumber", $phoneNumber, PDO::PARAM_STR);
         return $stmt->execute();
     }
+
+    public function getAllClientData(int $clientId)
+    {
+        $sql = "SELECT * FROM contact_data WHERE client_id = :clientId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

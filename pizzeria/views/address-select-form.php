@@ -5,6 +5,7 @@
             <option value="<?= $row["id"] ?>"><?= "Ulica: " . $row["street"] . " Numer domu: " . $row["house_number"] . " Miasto: " . $row["city"] ?></option>
         <?php endforeach; ?>
     </select>
+    <?php require_once "views/contact-data-select-form.php" ?>
     <label for="informationForCourier" class="mt-2">Informacje dla kuriera:</label>
     <textarea class="form-control mb-2" name="informationForCourier" placeholder="Max 255 znaków"></textarea>
     <button type="submit" class="btn btn-primary" name="makeOrder">Złóż zamówienie</button>

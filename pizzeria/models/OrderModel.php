@@ -10,13 +10,14 @@ class OrderModel
         $this->db = $db;
     }
 
-    public function addNewOrder(int $clientId, int $addressId, string $informationForCourier): bool
+    public function addNewOrder(int $clientId, int $addressId, int $contactDataId, string $informationForCourier): bool
     {
-        $sql = "INSERT INTO `order` (client_id, address_id, information_for_courier, order_status_id) 
-            VALUES(:clientId, :addressId, :informationForCourier, 1)";
+        $sql = "INSERT INTO `order` (client_id, address_id, contact_data_id, information_for_courier, order_status_id) 
+            VALUES(:clientId, :addressId, :contactDataId, :informationForCourier, 1)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":clientId", $clientId, PDO::PARAM_INT);
         $stmt->bindParam(":addressId", $addressId, PDO::PARAM_INT);
+        $stmt->bindParam(":contactDataId", $contactDataId, PDO::PARAM_INT);
         $stmt->bindParam(":informationForCourier", $informationForCourier, PDO::PARAM_STR);
         return $stmt->execute();
     }

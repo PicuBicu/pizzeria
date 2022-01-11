@@ -40,3 +40,7 @@ define("PRODUCT_UPDATE_ERROR", "Wystąpił problem w trakcie aktualizacji produk
 define("PRODUCT_UPDATE_SUCCESS", "Pomyślnie zaktualizowano produkt w bazie danych");
 define("PRODUCT_NOT_FOUND", "Nie posiadamy podanego produktu");
 define("PRODUCT_FETCH_ERROR", "Wystąpił problem w trakcie pobierania produktów do wyświetlenia");
+
+define("CONTACT_DATA_SAVE_ERROR", "Wystąpił problem w trakcie dodawania danych kontaktowych");
+define("CONTACT_DATA_SAVE_SUCCESS", "Pomyślnie dodano dane kontaktowe");
+define("CONTACT_DATA_UNABLE_TO_SELECT", "Nie posiadasz danych kontaktowych");

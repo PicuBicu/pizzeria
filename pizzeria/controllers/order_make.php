@@ -16,8 +16,10 @@ $location = "location: ../orders.php";
 
 if (
     isset($_POST["addressId"]) &&
+    isset($_POST["contactDataId"]) &&
     isset($_POST["makeOrder"])
 ) {
+    $contactDataId = filter_input(INPUT_POST, "contactDataId", FILTER_SANITIZE_NUMBER_INT);
     $addressId = filter_input(INPUT_POST, "addressId", FILTER_SANITIZE_NUMBER_INT);
     $informationForCourier = filter_input(INPUT_POST, "informationForCourier", FILTER_SANITIZE_STRING);
     $clientId = $_SESSION["clientId"];
@@ -26,14 +28,14 @@ if (
         $informationForCourier = "";
     }
 
-    if (!$addressId || strlen($informationForCourier) > 255) {
+    if (!$addressId && !$contactDataId || strlen($informationForCourier) > 255) {
         goToLocationWithError($location, ORDER_SAVE_ERROR);
     }
 
     $orderModel = new OrderModel($pdo);
     $pdo->beginTransaction();
 
-    if (!$orderModel->addNewOrder($clientId, $addressId, $informationForCourier)) {
+    if (!$orderModel->addNewOrder($clientId, $addressId, $contactDataId, $informationForCourier)) {
         $pdo->rollBack();
         goToLocationWithError($location, ORDER_SAVE_ERROR);
     }
