@@ -48,11 +48,11 @@ class OrderModel
         FROM
             `order` AS o,
             client_address AS ca,
-            order_status AS os
+            order_status AS os,
             contact_data AS cd
         WHERE
             ca.id = o.`address_id` AND
-            os.id = o.order_status_id
+            os.id = o.order_status_id AND
             cd.id = o.contact_data_id;";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();

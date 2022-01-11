@@ -21,14 +21,21 @@ try {
     $orderModel = new OrderModel($pdo);
     $basketModel = new BasketModel($pdo);
     if (isset($_GET["orderId"])) {
+
         $orderId = filter_input(INPUT_GET, "orderId", FILTER_SANITIZE_NUMBER_INT);
+
+        if (!$orderId) {
+            goToLocationWithWarning("location: orders.php", ORDER_NOT_FOUND);
+        }
+
         $orderItem = $orderModel->getOrderById($orderId);
         $basketList = $basketModel->getBasketByOrderId($orderId);
-        if (!$orderId || !$orderItem || !$basketList) {
+
+        if (!$orderItem || !$basketList) {
             goToLocationWithWarning("location: orders.php", ORDER_NOT_FOUND);
-        } else {
-            require_once "views/order-item.php";
         }
+
+        require_once "views/order-item.php";
     } else {
         $orderList = $orderModel->getAllOrders();
         $orderStatusesList = $orderModel->getAllStatuses();
