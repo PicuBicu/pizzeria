@@ -53,15 +53,33 @@
 
                 </tr>
             <?php endforeach; ?>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Suma</td>
+                <td class="sum"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
     <script>
+        function calcNewSum(arr) {
+            return arr.reduce((sum, val) => sum + (val.textContent * 1), 0);
+        }
+        const sumHandler = document.querySelector(".sum");
         const buttons = [...document.querySelectorAll(".calculateButton")];
         const fullPrice = document.querySelectorAll(".fullPrice");
         const price = document.querySelectorAll(".price");
         const quantity = document.querySelectorAll(".quantity");
+
+        sumHandler.textContent = calcNewSum([...fullPrice]);
+
         buttons.forEach((button, index) => button.addEventListener("click", (e) => {
-            fullPrice[index].textContent = (price[index].textContent * 1) * quantity[index].value;
+            const val = (price[index].textContent * 1) * quantity[index].value;
+            fullPrice[index].textContent = val;
+            sumHandler.textContent = calcNewSum([...fullPrice]);
             e.preventDefault();
         }));
     </script>
