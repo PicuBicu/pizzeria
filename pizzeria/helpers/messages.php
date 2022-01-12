@@ -5,6 +5,9 @@ define("LOGIN_CLIENT_SUCCESS", "Zalogowano pomyślnie");
 define("PERMISSION_DENIED", "Brak uprawnień by zobaczyć tę stronę");
 define("PAGE_NOT_FOUND", "Nie znaleziono podanej strony");
 
+define("EMAIL_SEND_SUCCESS", "Pomyślnie wysłano potwierdzenie zamówienia na email");
+define("EMAIL_SEND_ERROR", "Nie udało nam się wysłać potwierdzenia na podany email");
+
 define("BASKET_ADD_PRODUCT_ERROR", "Wystąpił problem podczas wstawiania elementu do koszyka");
 define("BASKET_ADD_PRODUCT_SUCCESS", "Pomyślnie dodano produkt do koszyka");
 define("BASKET_ALREADY_HAS_THIS_PRODUCT", "Podany produkt znajduje się już w koszyku");

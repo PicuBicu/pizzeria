@@ -43,6 +43,7 @@ if (
 
     $orderId = $pdo->lastInsertId();
     $basketModel = new BasketModel($pdo);
+    $foodList = $basketModel->getProductsFromBasket($clientId);
 
     if (!$basketModel->setOrderIdInBasket($clientId, $orderId)) {
         $pdo->rollBack();
@@ -55,22 +56,11 @@ if (
     $clientModel = new ClientModel($pdo);
     $chosenMail = $clientModel->getEmailByClientId($clientId, $contactDataId)["email"];
     if (isset($_POST["confirmation"]) && $_POST["confirmation"] === "on") {
-        echo $chosenMail;
-        $from  = "From: iomail2021@gmail.com \r\n";
-        $from .= 'MIME-Version: 1.0' . "\r\n";
-        $from .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-        $title = "Potwierdzenie zamówienia";
-        $message = "<html>
-        <head>
-        </head>
-        <body>
-        <b>Potwierdzamy odebranie zamówienia o id $orderId</b><br/>
-        </body>
-        </html>";
-        if (mail($chosenMail, $title, $message, $from)) {
-            goToLocationWithSuccess($location, "Poprawnie wysłano e-mail");
+        $blocked = true;
+        if ($foodList && sendMailTo($chosenMail, $foodList, $orderId)) {
+            goToLocationWithSuccess($location, EMAIL_SEND_SUCCESS);
         } else {
-            goToIndexWithError($location, "Wystąpił nieoczekiwany błąd, spróbuj jeszcze raz...");
+            goToIndexWithError($location, EMAIL_SEND_ERROR);
         }
     }
     goToLocationWithSuccess($location, ORDER_SAVE_SUCCESS);
