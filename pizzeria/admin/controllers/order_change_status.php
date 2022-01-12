@@ -29,8 +29,21 @@ if (
 
     $orderModel = new OrderModel($pdo);
 
-    if ($orderModel->updateOrderStatusId($orderId, $orderStatusId)) {
-        goToLocationWithSuccess($location, ORDER_STATUS_CHANGE_SUCCESS);
+    if (
+        $orderModel->updateOrderStatusId($orderId, $orderStatusId)
+    ) {
+        $orderData = $orderModel->getOrderById($orderId);
+        if (
+            $orderData &&
+            sendMailTo(
+                $orderData["email"],
+                [],
+                "Twoje zamówienie zmieniło status na " . $orderData["name"],
+                "Zmiana statusu zamówienia " . $orderData["id"]
+            )
+        ) {
+            goToLocationWithSuccess($location, ORDER_STATUS_CHANGE_SUCCESS);
+        }
     }
 }
 goToLocationWithError($location, ORDER_STATUS_CHANGE_ERROR);
