@@ -8,8 +8,11 @@
     <?php require_once "views/contact-data-select-form.php" ?>
     <label for="informationForCourier" class="mt-2">Informacje dla kuriera:</label>
     <textarea class="form-control mb-2" name="informationForCourier" placeholder="Max 255 znaków"></textarea>
-    <label for="informationForCourier" class="mt-2">Czy przesłać potwierdzenie na maila?</label>
-    <input type="checkbox" name="confirmation" class="form-checkbox mb-2" /><br />
-    <button type="submit" class="btn btn-primary" name="makeOrder">Złóż zamówienie</button>
-    <button type="submit" class="btn btn-primary" name="cancelOrder">Anuluj zamówienie</button>
+    <input type="checkbox" name="confirmation" class="form-check-input" />
+    <label for="confirmation">Czy przesłać potwierdzenie na maila?</label>
+    <div class="hr"></div>
+    <div class="mt-2">
+        <button type="submit" class="btn btn-primary" name="makeOrder">Złóż zamówienie</button>
+        <button type="submit" class="btn btn-primary" name="cancelOrder">Anuluj zamówienie</button>
+    </div>
 </form>
