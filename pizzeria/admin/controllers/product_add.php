@@ -78,7 +78,7 @@ if (
         goToIndexWithError();
     }
 
-    $location = '../../../img/';
+    $location = '../../img/';
     $tempName = $_FILES['uploadFile']['tmp_name'];
 
     if (
