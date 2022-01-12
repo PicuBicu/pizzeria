@@ -19,12 +19,18 @@ try {
     if (isset($_GET["foodId"])) {
         $foodModel = new FoodModel($pdo);
         $foodId = filter_input(INPUT_GET, 'foodId', FILTER_SANITIZE_NUMBER_INT);
-        $foodDetails = $foodModel->getProductWithDetailsById($foodId);
-        if (!$foodId || !$foodDetails) {
+
+        if (!$foodId) {
             goToLocationWithWarning($location, PRODUCT_NOT_FOUND);
-        } else {
-            require_once "views/food-context.php";
         }
+
+        $foodDetails = $foodModel->getProductWithDetailsById($foodId);
+
+        if (!$foodDetails) {
+            goToLocationWithWarning($location, PRODUCT_NOT_FOUND);
+        }
+
+        require_once "views/food-context.php";
     } else {
         goToLocationWithWarning($location, PRODUCT_NOT_FOUND);
     }
