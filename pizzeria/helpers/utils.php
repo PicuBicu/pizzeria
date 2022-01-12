@@ -79,13 +79,8 @@ function checkPasswordStrenth($password)
     }
 }
 
-function sendMailTo(string $email, array $foodList, int $orderId)
+function prepareBasket($foodList)
 {
-    echo $email;
-    $from  = "From: iomail2021@gmail.com \r\n";
-    $from .= 'MIME-Version: 1.0' . "\r\n";
-    $from .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $title = "Potwierdzenie zamówienia $orderId";
     $message = '
         <html>
         <head>
@@ -127,5 +122,13 @@ function sendMailTo(string $email, array $foodList, int $orderId)
     $message .= '<h2>Twoje zamówienie jest w trakcie realizacji</h2>';
     $message .= '</body>
             </html>';
+    return $message;
+}
+
+function sendMailTo(string $email, array $foodList, string $message, string $title)
+{
+    $from  = "From: iomail2021@gmail.com \r\n";
+    $from .= 'MIME-Version: 1.0' . "\r\n";
+    $from .= 'Content-type: text/html; charset=utf-8' . "\r\n";
     return mail($email, $title, $message, $from);
 }

@@ -57,7 +57,7 @@ if (
     $chosenMail = $clientModel->getEmailByClientId($clientId, $contactDataId)["email"];
     if (isset($_POST["confirmation"]) && $_POST["confirmation"] === "on") {
         $blocked = true;
-        if ($foodList && sendMailTo($chosenMail, $foodList, $orderId)) {
+        if ($foodList && sendMailTo($chosenMail, $foodList, prepareBasket($foodList), "Potwierdzenie wysłania zamówienia $orderId")) {
             goToLocationWithSuccess($location, EMAIL_SEND_SUCCESS);
         } else {
             goToIndexWithError($location, EMAIL_SEND_ERROR);
