@@ -1,4 +1,4 @@
-<h2>Informacje o zamówieniu</h2>
+<h2 class="no-data">Informacje o zamówieniu</h2>
 <table class="table rounded">
     <thead>
         <tr>
@@ -33,7 +33,7 @@
         </tr>
     </tbody>
 </table>
-<h2>Produkty w zamówieniu</h2>
+<h2 class="no-data">Produkty w zamówieniu</h2>
 <table class="table rounded">
     <thead>
         <tr>
